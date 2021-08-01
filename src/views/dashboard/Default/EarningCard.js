@@ -172,7 +172,7 @@ const EarningCard = ({ isLoading }) => {
                         <Grid item>
                             <Grid container alignItems="center">
                                 <Grid item>
-                                    <Typography className={classes.cardHeading}>$500.00</Typography>
+                                    <Typography className={classes.cardHeading}>488</Typography>
                                 </Grid>
                                 <Grid item>
                                     <Avatar className={classes.avatarCircle}>
@@ -182,7 +182,7 @@ const EarningCard = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Total Earning</Typography>
+                            <Typography className={classes.subHeading}>Total Nodes</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>

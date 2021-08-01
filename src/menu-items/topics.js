@@ -37,7 +37,7 @@ const icons = {
 //                 title: song.label,
 //                 type: 'item',
 //                 url: `/node/${song.id}`,
-//                 target: true
+//                 target: false
 //             });
 //         }
 //     }
@@ -64,42 +64,42 @@ export const topics = {
                     title: 'Adilfitri',
                     type: 'item',
                     url: '/node/ZS.score.1950.00.00b-Work',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'majulahsingapura',
                     title: 'Majulah Singapura',
                     type: 'item',
                     url: '/node/Majulah_Singapura-Work',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'nasibmalang',
                     title: 'Nasib Malang',
                     type: 'item',
                     url: '/node/Nasib_Malang-Work',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'orangsingapura',
                     title: 'Orang Singapura',
                     type: 'item',
                     url: '/node/Orang_Singapura-Work',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'sayangdisayang',
                     title: 'Sayang Disayang',
                     type: 'item',
                     url: '/node/Sayang_Disayang-Work',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'semogabahagia',
                     title: 'Semoga Bahagia',
                     type: 'item',
                     url: '/node/Semoga_Bahagia-Work',
-                    target: true
+                    target: false
                 }
             ]
         },
@@ -109,7 +109,7 @@ export const topics = {
             type: 'item',
             url: '/node/Person',
             icon: icons['IconSocial'],
-            breadcrumbs: true
+            breadcrumbs: false
         },
         {
             id: 'genres',
@@ -122,21 +122,21 @@ export const topics = {
                     title: 'Photos',
                     type: 'item',
                     url: '/node/Photograph',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'letters',
                     title: 'Letters',
                     type: 'item',
                     url: '/node/Letter',
-                    target: true
+                    target: false
                 },
                 {
                     id: 'speeches',
                     title: 'Speeches',
                     type: 'item',
                     url: '/node/Speech',
-                    target: true
+                    target: false
                 }
             ]
         },
