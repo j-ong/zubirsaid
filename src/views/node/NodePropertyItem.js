@@ -259,7 +259,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                         </List>
                                     </Grid>
 
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <MoreHorizOutlinedIcon
                                             fontSize="small"
                                             className={classes.primaryLight}
@@ -287,7 +287,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                             <MenuItem onClick={handleClose}> This Month</MenuItem>
                                             <MenuItem onClick={handleClose}> This Year </MenuItem>
                                         </Menu>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
 

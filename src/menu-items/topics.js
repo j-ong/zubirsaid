@@ -137,6 +137,41 @@ export const topics = {
                     type: 'item',
                     url: '/node/Speech',
                     target: false
+                },
+                {
+                    id: 'documents',
+                    title: 'Documents',
+                    type: 'item',
+                    url: '/node/Document',
+                    target: false
+                },
+                {
+                    id: 'commentary',
+                    title: 'Commentary',
+                    type: 'item',
+                    url: '/node/Comment',
+                    target: false
+                },
+                {
+                    id: 'Essays',
+                    title: 'Essays',
+                    type: 'item',
+                    url: '/node/Essay',
+                    target: false
+                },
+                {
+                    id: 'news',
+                    title: 'News',
+                    type: 'item',
+                    url: '/node/NewsArticle',
+                    target: false
+                },
+                {
+                    id: 'tvdocumentaries',
+                    title: 'TV Documentaries',
+                    type: 'item',
+                    url: '/node/TV_documentary',
+                    target: false
                 }
             ]
         },
