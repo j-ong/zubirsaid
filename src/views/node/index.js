@@ -7,19 +7,17 @@ import React, { useEffect, useContext } from 'react';
 import MainlistContext from '../../contexts/mainlist/mainlistContext';
 
 //import nodeItem components
-import NodeItem from '../node/NodeItem';
+import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
 import { Grid } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import MuiTypography from '@material-ui/core/Typography';
+// import { Typography } from '@material-ui/core';
+// import MuiTypography from '@material-ui/core/Typography';
 
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
 import SubCard from './../../ui-component/cards/SubCard';
 import { gridSpacing } from './../../store/constant';
-
-import NodePropertyItem from './NodePropertyItem';
 
 //==============================|| SAMPLE PAGE ||==============================//
 
@@ -32,7 +30,7 @@ const Node = ({ match }) => {
 
     useEffect(() => {
         getNodes(match.params.id);
-        // estlint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     console.log(nodes);

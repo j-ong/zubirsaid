@@ -18,24 +18,20 @@ import LibraryMusic from '@material-ui/icons/LibraryMusic';
 import Description from '@material-ui/icons/Description';
 
 // additional main card assets
-import { Button, Chip, CardActions, CardContent, Divider, Grid, Menu, MenuItem } from '@material-ui/core';
+import { Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem } from '@material-ui/core';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
-import KeyboardArrowUpOutlinedIcon from '@material-ui/icons/KeyboardArrowUpOutlined';
-import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 
 import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
 import Launch from '@material-ui/icons/Launch';
 import Image from '@material-ui/icons/Image';
 import Movie from '@material-ui/icons/Movie';
 
-import ButtonBase from '@material-ui/core/ButtonBase';
-
 import ReactPlayer from 'react-player/youtube';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import { borderColor, borderTop } from '@material-ui/system';
+// import { borderColor, borderTop } from '@material-ui/system';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
