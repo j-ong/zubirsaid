@@ -90,7 +90,7 @@ const MainlistState = (props) => {
         //push grouped results into nodeArray based on i.e. realization
         var nodeArray = [];
         for (groupName in groups) {
-            if (groupName !== 'TYPE') {
+            if (groupName !== 'Subclass of') {
                 nodeArray.push({
                     group: groupName,
                     properties: groups[groupName]
