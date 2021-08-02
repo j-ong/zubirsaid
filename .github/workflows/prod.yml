@@ -1,8 +1,6 @@
 name: Node - SSH deploy
 
-# Set CI to false
-env:
-    CI: false
+
 
 # Controls when the action will run.
 on:
@@ -41,3 +39,4 @@ jobs:
                   REMOTE_USER: berry
                   TARGET: public_html/free
                   EXCLUDE: '/dist/, /node_modules/'
+                  CI: ""
