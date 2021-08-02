@@ -4,4 +4,18 @@ The site is deployed on [https://zubirsaid.netlify.app/](https://zubirsaid.netli
 
 # Setting it up on your machine
 
-Use `yarn` to install packagse. Use `yarn start` to start the server.
+### Clone the package to your server
+
+`git clone https://github.com/j-ong/zubirsaid.git`
+
+### Move into the directory
+
+`cd zubirsaid`
+
+### Install the dependencies
+
+`yarn` in the zubirsaid directory
+
+### Run the server on local machine
+
+`yarn start`
