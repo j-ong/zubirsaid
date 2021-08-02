@@ -19,3 +19,11 @@ The site is deployed on [https://zubirsaid.netlify.app/](https://zubirsaid.netli
 ### Run the server on local machine
 
 `yarn start`
+
+# Git
+
+Create a new branch
+Checkout the new branch
+git add {changed files}
+git commit -m {message}
+git push -u origin {new_branch}
