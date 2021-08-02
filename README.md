@@ -22,8 +22,9 @@ The site is deployed on [https://zubirsaid.netlify.app/](https://zubirsaid.netli
 
 # Git
 
+Follow instructions [here](https://opensource.com/article/19/7/create-pull-request-github) \
 Create a new branch\
 Checkout the new branch\
 git add {changed files}\
 git commit -m {message}\
-git push -u origin {new_branch}\
+git push -u origin {new_branch}
