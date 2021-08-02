@@ -22,8 +22,8 @@ The site is deployed on [https://zubirsaid.netlify.app/](https://zubirsaid.netli
 
 # Git
 
-Create a new branch
-Checkout the new branch
-git add {changed files}
-git commit -m {message}
-git push -u origin {new_branch}
+Create a new branch\
+Checkout the new branch\
+git add {changed files}\
+git commit -m {message}\
+git push -u origin {new_branch}\
