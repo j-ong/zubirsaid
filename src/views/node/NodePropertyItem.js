@@ -426,7 +426,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                     <Fragment>
                                         <Grid container alignItems="center" justifyContent="space-between" direction="row" spacing={2}>
                                             {property.accessURL.map((link, index) => (
-                                                <Grid item>
+                                                <Grid item key={index}>
                                                     <Typography variant="subtitle2" color="inherit">
                                                         <a href={link} style={{ textDecoration: 'none' }}>
                                                             {showAccessURL(link)}
