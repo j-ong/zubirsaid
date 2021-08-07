@@ -6,7 +6,6 @@ import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
 
 const MainlistState = (props) => {
     const initialState = {
-        sidebarSongList: {},
         cards: [],
         nodes: [],
         nodeSummary: [],
@@ -88,7 +87,6 @@ const MainlistState = (props) => {
     return (
         <MainlistContext.Provider
             value={{
-                sidebarSongList: state.sidebarSongList,
                 cards: state.cards,
                 nodes: state.nodes,
                 nodeSummary: state.nodeSummary,

@@ -1,12 +1,7 @@
-import { SET_SIDEBAR_SONGLIST, GET_CARDS, GET_NODES, SET_LOADING } from '../types';
+import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
 
 const MainlistReducer = (state, action) => {
     switch (action.type) {
-        case SET_SIDEBAR_SONGLIST:
-            return {
-                ...state,
-                sidebarSongList: action.payload
-            };
         case GET_CARDS:
             return {
                 ...state,

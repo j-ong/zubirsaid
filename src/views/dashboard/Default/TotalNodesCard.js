@@ -6,17 +6,20 @@ import { makeStyles } from '@material-ui/styles';
 import { Avatar, Grid, Menu, MenuItem, Typography } from '@material-ui/core';
 
 // project imports
-import MainCard from './../../../ui-component/cards/MainCard';
-import SkeletonEarningCard from './../../../ui-component/cards/Skeleton/EarningCard';
+import MainCard from '../../../ui-component/cards/MainCard';
+import SkeletonEarningCard from '../../../ui-component/cards/Skeleton/EarningCard';
+
+//avatar for node icon
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+
+//link
+import { Link } from 'react-router-dom';
 
 // assets
-import EarningIcon from './../../../assets/images/icons/earning.svg';
+// import EarningIcon from './../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
-import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
-import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary[200]
     },
     avatarCircle: {
-        cursor: 'pointer',
+        // cursor: 'pointer',
         ...theme.typography.smallAvatar,
         backgroundColor: theme.palette.secondary[200],
         color: theme.palette.secondary.dark
@@ -100,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const EarningCard = ({ isLoading }) => {
+const TotalNodesCard = ({ isLoading, songsCount }) => {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -124,7 +127,8 @@ const EarningCard = ({ isLoading }) => {
                             <Grid container justifyContent="space-between">
                                 <Grid item>
                                     <Avatar variant="rounded" className={classes.avatar}>
-                                        <img src={EarningIcon} alt="Notification" />
+                                        {/* <img src={EarningIcon} alt="Notification" /> */}
+                                        <LibraryMusicIcon fontSize="inherit" />
                                     </Avatar>
                                 </Grid>
                                 <Grid item>
@@ -153,18 +157,11 @@ const EarningCard = ({ isLoading }) => {
                                             horizontal: 'right'
                                         }}
                                     >
-                                        <MenuItem onClick={handleClose}>
-                                            <GetAppTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Import Card
-                                        </MenuItem>
-                                        <MenuItem onClick={handleClose}>
-                                            <FileCopyTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Copy Data
-                                        </MenuItem>
-                                        <MenuItem onClick={handleClose}>
-                                            <PictureAsPdfTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Export
-                                        </MenuItem>
-                                        <MenuItem onClick={handleClose}>
-                                            <ArchiveTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Archive File
-                                        </MenuItem>
+                                        <Link to={`/node/MusicalWork`} style={{ textDecoration: 'none', color: '#4a154b' }}>
+                                            <MenuItem onClick={handleClose}>
+                                                <MusicNoteIcon fontSize="inherit" className={classes.menuItem} /> View song list
+                                            </MenuItem>
+                                        </Link>
                                     </Menu>
                                 </Grid>
                             </Grid>
@@ -172,7 +169,7 @@ const EarningCard = ({ isLoading }) => {
                         <Grid item>
                             <Grid container alignItems="center">
                                 <Grid item>
-                                    <Typography className={classes.cardHeading}>488</Typography>
+                                    <Typography className={classes.cardHeading}>{songsCount}</Typography>
                                 </Grid>
                                 <Grid item>
                                     <Avatar className={classes.avatarCircle}>
@@ -182,7 +179,7 @@ const EarningCard = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Total Nodes</Typography>
+                            <Typography className={classes.subHeading}>Total Songs</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>
@@ -191,8 +188,8 @@ const EarningCard = ({ isLoading }) => {
     );
 };
 
-EarningCard.propTypes = {
+TotalNodesCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default TotalNodesCard;
