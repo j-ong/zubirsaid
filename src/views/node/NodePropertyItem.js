@@ -18,9 +18,10 @@ import LibraryMusic from '@material-ui/icons/LibraryMusic';
 import Description from '@material-ui/icons/Description';
 
 // additional main card assets
-import { Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem } from '@material-ui/core';
+import { Button, CardActions, CardContent, Divider, Grid } from '@material-ui/core';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
-import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
+// import {  Menu, MenuItem } from '@material-ui/core';
+// import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined';
 
 import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
 import Launch from '@material-ui/icons/Launch';
@@ -126,16 +127,16 @@ const useStyles = makeStyles((theme) => ({
 const NodePropertyItem = ({ loading, property }) => {
     const classes = useStyles();
 
-    //additional logic for the card
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    //additional logic for the card to have an elipses menu on each card
+    // const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handleClick = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    // const handleClose = () => {
+    //     setAnchorEl(null);
+    // };
 
     //Render avatar icon based on the property type
     const showAvatarIcon = () => {

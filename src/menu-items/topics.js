@@ -1,187 +1,194 @@
 // assets
-import { IconPlaylist, IconSocial, IconArchive, IconBulb } from '@tabler/icons';
+import {
+    IconPlaylist,
+    IconSocial,
+    IconArchive,
+    IconBulb,
+    IconBuildingCommunity,
+    IconCalendarEvent,
+    IconAward,
+    IconMap2,
+    IconMessageCircle2,
+    IconFileMusic,
+    IconFiles,
+    IconNotebook
+} from '@tabler/icons';
 
 //import axios
-// import axios from 'axios';
-
-//import useState
-// import React, { useState } from 'react';
+import axios from 'axios';
 
 // constant
 const icons = {
     IconPlaylist: IconPlaylist,
     IconSocial: IconSocial,
     IconArchive: IconArchive,
-    IconBulb: IconBulb
+    IconBulb: IconBulb,
+    IconBuildingCommunity: IconBuildingCommunity,
+    IconCalendarEvent: IconCalendarEvent,
+    IconAward: IconAward,
+    IconMap2: IconMap2,
+    IconFiles: IconFiles,
+    IconMessageCircle2: IconMessageCircle2,
+    IconFileMusic: IconFileMusic,
+    IconNotebook: IconNotebook
 };
-
-// const ChildrenList = () => {
-//     const [songList, setSongList] = useState([]);
-
-//     const getSongList = async () => {
-//         const res = await axios.get('https://chriskhoo.net/ZS/0/MusicalWork');
-
-//         var data = res.data;
-//         var loopData = [];
-//         for (var i = 0; i < data.length; i++) {
-//             loopData.push(data[i]._fields[2].properties);
-//         }
-
-//         setSongList(loopData);
-//     };
-
-//     if (songList) {
-//         for (const song in songList) {
-//             topics.children[0].children.push({
-//                 id: song.id,
-//                 title: song.label,
-//                 type: 'item',
-//                 url: `/node/${song.id}`,
-//                 target: false
-//             });
-//         }
-//     }
-
-//     return <div></div>;
-// };
 
 //-----------------------|| EXTRA PAGES MENU ITEMS ||-----------------------//
 
-export const topics = {
-    id: 'topics',
-    title: 'topics',
-    // caption: 'Pages Caption',
-    type: 'group',
-    children: [
-        {
-            id: 'songs',
-            title: 'Songs',
-            type: 'collapse',
-            icon: icons['IconPlaylist'],
-            children: [
-                {
-                    id: 'adilfitri',
-                    title: 'Adilfitri',
-                    type: 'item',
-                    url: '/node/ZS.score.1950.00.00b-Work',
-                    target: false
-                },
-                {
-                    id: 'majulahsingapura',
-                    title: 'Majulah Singapura',
-                    type: 'item',
-                    url: '/node/Majulah_Singapura-Work',
-                    target: false
-                },
-                {
-                    id: 'nasibmalang',
-                    title: 'Nasib Malang',
-                    type: 'item',
-                    url: '/node/Nasib_Malang-Work',
-                    target: false
-                },
-                {
-                    id: 'orangsingapura',
-                    title: 'Orang Singapura',
-                    type: 'item',
-                    url: '/node/Orang_Singapura-Work',
-                    target: false
-                },
-                {
-                    id: 'sayangdisayang',
-                    title: 'Sayang Disayang',
-                    type: 'item',
-                    url: '/node/Sayang_Disayang-Work',
-                    target: false
-                },
-                {
-                    id: 'semogabahagia',
-                    title: 'Semoga Bahagia',
-                    type: 'item',
-                    url: '/node/Semoga_Bahagia-Work',
-                    target: false
+const generateTopics = () => {
+    let topic = {
+        id: 'topics',
+        title: 'topics',
+        // caption: 'Pages Caption',
+        type: 'group',
+        children: [
+            {
+                id: 'songs',
+                title: 'Songs',
+                type: 'collapse',
+                icon: icons['IconPlaylist'],
+                children: []
+            },
+            {
+                id: 'social-network',
+                title: 'Social Network',
+                type: 'collapse',
+                icon: icons['IconSocial'],
+                children: []
+            },
+            {
+                id: 'organization',
+                title: 'Organizations',
+                type: 'collapse',
+                icon: icons['IconBuildingCommunity'],
+                children: []
+            },
+            {
+                id: 'events',
+                title: 'Events',
+                type: 'collapse',
+                icon: icons['IconCalendarEvent'],
+                children: []
+            },
+            {
+                id: 'reply-actions',
+                title: 'Reply Actions',
+                type: 'collapse',
+                icon: icons['IconMessageCircle2'],
+                children: []
+            },
+            // {
+            //     id: 'reply-actions',
+            //     title: 'Reply Actions',
+            //     type: 'item',
+            //     url: '/node/ReplyAction',
+            //     icon: icons['IconMessageCircle2'],
+            //     breadcrumbs: false
+            // },
+            {
+                id: 'genres',
+                title: 'Genres',
+                type: 'collapse',
+                icon: icons['IconArchive'],
+                children: []
+            },
+            {
+                id: 'topics',
+                title: 'Topics',
+                type: 'collapse',
+                icon: icons['IconBulb'],
+                children: []
+            },
+            {
+                id: 'awards',
+                title: 'Awards',
+                type: 'collapse',
+                icon: icons['IconAward'],
+                children: []
+            },
+            {
+                id: 'civic-structure',
+                title: 'Civic Structure',
+                type: 'collapse',
+                icon: icons['IconMap2'],
+                children: []
+            },
+            {
+                id: 'musical-expressions',
+                title: 'Musical Expressions',
+                type: 'collapse',
+                icon: icons['IconFileMusic'],
+                children: []
+            },
+            {
+                id: 'documents',
+                title: 'Documents',
+                type: 'collapse',
+                icon: icons['IconNotebook'],
+                children: []
+            },
+            {
+                id: 'items',
+                title: 'Items',
+                type: 'collapse',
+                icon: icons['IconFiles'],
+                children: []
+            }
+        ]
+    };
+
+    //Generate sub menu
+    const getSubMenu = async (menuType, index) => {
+        const res = await axios.get(`https://chriskhoo.net/ZS/0/${menuType}`);
+
+        var data = res.data;
+        var loopData = [];
+        for (var i = 0; i < data.length; i++) {
+            if (menuType === 'Person' || menuType === 'Event') {
+                if (data[i]._fields[2].properties.type === 'Taxonomy') {
+                    loopData.push(data[i]._fields[2].properties);
                 }
-            ]
-        },
-        {
-            id: 'social-network',
-            title: 'Social Network',
-            type: 'item',
-            url: '/node/Person',
-            icon: icons['IconSocial'],
-            breadcrumbs: false
-        },
-        {
-            id: 'genres',
-            title: 'Genres',
-            type: 'collapse',
-            icon: icons['IconArchive'],
-            children: [
-                {
-                    id: 'photos',
-                    title: 'Photos',
-                    type: 'item',
-                    url: '/node/Photograph',
-                    target: false
-                },
-                {
-                    id: 'letters',
-                    title: 'Letters',
-                    type: 'item',
-                    url: '/node/Letter',
-                    target: false
-                },
-                {
-                    id: 'speeches',
-                    title: 'Speeches',
-                    type: 'item',
-                    url: '/node/Speech',
-                    target: false
-                },
-                {
-                    id: 'documents',
-                    title: 'Documents',
-                    type: 'item',
-                    url: '/node/Document',
-                    target: false
-                },
-                {
-                    id: 'commentary',
-                    title: 'Commentary',
-                    type: 'item',
-                    url: '/node/Comment',
-                    target: false
-                },
-                {
-                    id: 'Essays',
-                    title: 'Essays',
-                    type: 'item',
-                    url: '/node/Essay',
-                    target: false
-                },
-                {
-                    id: 'news',
-                    title: 'News',
-                    type: 'item',
-                    url: '/node/NewsArticle',
-                    target: false
-                },
-                {
-                    id: 'tvdocumentaries',
-                    title: 'TV Documentaries',
-                    type: 'item',
-                    url: '/node/TV_documentary',
-                    target: false
-                }
-            ]
-        },
-        {
-            id: 'subjects',
-            title: 'Subjects',
-            type: 'item',
-            url: '/node/Topic',
-            icon: icons['IconBulb'],
-            breadcrumbs: false
+            } else {
+                loopData.push(data[i]._fields[2].properties);
+            }
         }
-    ]
+
+        loopData.sort(function (a, b) {
+            if (a.label < b.label) {
+                return -1;
+            }
+            if (a.label > b.label) {
+                return 1;
+            }
+            return 0;
+        });
+
+        loopData.forEach((menu) => {
+            let id = menu.id;
+            let label = menu.label;
+            topic.children[index].children.push({
+                id: id,
+                title: label,
+                type: 'item',
+                url: `/node/${id}`,
+                target: false
+            });
+        });
+    };
+    getSubMenu('MusicalWork', 0);
+    getSubMenu('Person', 1);
+    getSubMenu('Organization', 2);
+    getSubMenu('Event', 3);
+    getSubMenu('ReplyAction', 4);
+    getSubMenu('CreativeWork', 5);
+    getSubMenu('Topic', 6);
+    getSubMenu('Award', 7);
+    getSubMenu('Place', 8);
+    getSubMenu('MusicalExpression', 9);
+    getSubMenu('Document', 10);
+    getSubMenu('Item', 11);
+
+    return topic;
 };
+
+export let topics = generateTopics();

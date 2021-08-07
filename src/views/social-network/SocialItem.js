@@ -7,7 +7,6 @@ import MuiTypography from '@material-ui/core/Typography';
 // project imports
 
 import SubCard from '../../ui-component/cards/SubCard';
-import { gridSpacing } from '../../store/constant';
 
 const SocialItem = ({ network }) => {
     return (

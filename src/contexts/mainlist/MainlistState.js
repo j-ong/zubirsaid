@@ -15,37 +15,6 @@ const MainlistState = (props) => {
 
     const [state, dispatch] = useReducer(MainlistReducer, initialState);
 
-    //Get Sidebar List
-    // const getSidebarSongList = async () => {
-    //     const res = await axios.get('https://chriskhoo.net/ZS/0/MusicalWork');
-
-    //     var data = res.data;
-    //     var loopData = [];
-    //     for (var i = 0; i < data.length; i++) {
-    //         loopData.push(data[i]._fields[2].properties);
-    //     }
-
-    //     var subNavigationList = {};
-
-    //     // setSongList(loopData);
-    //     if (loopData) {
-    //         for (const data in loopData) {
-    //             subNavigationList.push({
-    //                 id: data.id,
-    //                 title: data.label,
-    //                 type: 'item',
-    //                 url: `/node/${data.id}`,
-    //                 target: true
-    //             });
-    //         }
-    //     }
-
-    //     dispatch({
-    //         type: SET_SIDEBAR_SONGLIST,
-    //         payload: subNavigationList
-    //     });
-    // };
-
     //Get Cards
     const getCards = async () => {
         setLoading();
@@ -90,12 +59,18 @@ const MainlistState = (props) => {
         //push grouped results into nodeArray based on i.e. realization
         var nodeArray = [];
         for (groupName in groups) {
-            if (groupName !== 'Subclass of') {
-                nodeArray.push({
-                    group: groupName,
-                    properties: groups[groupName]
-                });
-            }
+            nodeArray.push({
+                group: groupName,
+                properties: groups[groupName]
+            });
+
+            //filter out any subclasses cards
+            // if (groupName !== 'Subclass of') {
+            //     nodeArray.push({
+            //         group: groupName,
+            //         properties: groups[groupName]
+            //     });
+            // }
         }
 
         var nodeSummary = data[0]._fields[0].properties;
