@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 
-//import axios
-// import axios from 'axios';
+// get unique identifier
+import uuid from 'react-uuid';
 
 //import context
 import MainlistContext from '../../contexts/mainlist/mainlistContext';
@@ -38,8 +38,8 @@ const Node = ({ match }) => {
                         <SubCard title={node.group}>
                             <Grid container spacing={gridSpacing}>
                                 {node.properties.map((property) => (
-                                    <Grid item lg={6} md={6} sm={6} xs={12} key={property.id}>
-                                        <NodePropertyItem loading={loading} property={property} />
+                                    <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
+                                        <NodePropertyItem loading={loading} property={property} key={property.id} />
                                     </Grid>
                                 ))}
                             </Grid>
