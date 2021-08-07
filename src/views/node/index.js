@@ -25,41 +25,21 @@ const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
     const { nodes, getNodes, nodeSummary, loading } = mainlistContext;
 
-    // const [cards, setcards] = useState([]);
-    // const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(nodes);
-
-    // const getcards = async () => {
-    //     setLoading(true);
-    //     const res = await axios.get('https://chriskhoo.net/ZS/0/Person');
-
-    //     var data = res.data;
-    //     var loopData = [];
-    //     for (var i = 0; i < data.length; i++) {
-    //         loopData.push(data[i]._fields[2].properties);
-    //     }
-
-    //     setCards(loopData);
-    //     setLoading(false);
-    // };
-
     return (
         <MainCard title={nodeSummary.label}>
-            {console.log(nodeSummary)}
             <Grid container spacing={gridSpacing}>
                 {nodes.map((node) => (
-                    <Grid item xs={12} sm={12}>
-                        <SubCard title={node.group} key={node.group}>
+                    <Grid item xs={12} sm={12} key={node.group}>
+                        <SubCard title={node.group}>
                             <Grid container spacing={gridSpacing}>
                                 {node.properties.map((property) => (
-                                    <Grid item lg={6} md={6} sm={6} xs={12}>
-                                        <NodePropertyItem loading={loading} property={property} key={property.id} />
+                                    <Grid item lg={6} md={6} sm={6} xs={12} key={property.id}>
+                                        <NodePropertyItem loading={loading} property={property} />
                                     </Grid>
                                 ))}
                             </Grid>
