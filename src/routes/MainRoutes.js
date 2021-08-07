@@ -19,7 +19,7 @@ const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIc
 const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
 
 //custom page routing
-const SocialNetwork = Loadable(lazy(() => import('../views/social-network')));
+// const SocialNetwork = Loadable(lazy(() => import('../views/social-network')));
 const Node = Loadable(lazy(() => import('../views/node')));
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
@@ -39,7 +39,7 @@ const MainRoutes = () => {
                 '/icons/material-icons',
 
                 '/sample-page',
-                '/social-network',
+                // '/social-network',
                 '/node/:id'
             ]}
         >
@@ -54,7 +54,7 @@ const MainRoutes = () => {
                     <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
 
                     <Route path="/sample-page" component={SamplePage} />
-                    <Route path="/social-network" component={SocialNetwork} />
+                    {/* <Route path="/social-network" component={SocialNetwork} /> */}
                     <Route path="/node/:id" component={Node} />
                 </Switch>
             </MainLayout>
