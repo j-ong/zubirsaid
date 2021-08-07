@@ -156,7 +156,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             </Avatar>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Typography className={classes.subHeading}>Total Order</Typography>
+                                            <Typography className={classes.subHeading}>Song Player</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
