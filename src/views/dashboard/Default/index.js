@@ -42,27 +42,35 @@ const Dashboard = () => {
         getSongsCount();
     }, []);
 
+    const section = {
+        height: '100%'
+        // paddingTop: 5
+    };
+
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
-                <Grid container spacing={gridSpacing}>
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalNodesCard isLoading={isLoading} songsCount={counter} />
+                <Grid container spacing={gridSpacing} direction="row">
+                    <Grid item xs={12} md={6}>
+                        <TotalNodesCard isLoading={isLoading} songsCount={counter} style={section} />
                     </Grid>
 
-                    <Grid item lg={8} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
+                    <Grid item xs={12} md={6}>
+                        <ProfileCard isLoading={isLoading} style={section} />
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12} md={4}>
-                        <ProfileCard isLoading={isLoading} />
+                    <Grid item xs={12} md={6}>
+                        <TotalOrderLineChartCard isLoading={isLoading} style={section} />
                     </Grid>
-                    <Grid item xs={12} md={8}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
+                    <Grid item xs={12} md={6}>
+                        <TotalGrowthBarChart isLoading={isLoading} style={section} />
                     </Grid>
+                    {/* <Grid item xs={12} md={4}>
+                        <TotalGrowthBarChart isLoading={isLoading} style={section} />
+                    </Grid> */}
                 </Grid>
             </Grid>
         </Grid>

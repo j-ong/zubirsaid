@@ -1,55 +1,73 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 // assets
 import Zubirold from './../../../assets/images/zs/zubirscore.jpeg';
 import Zubirpres from './../../../assets/images/zs/zubirpres.jpeg';
 import Zubirscore from './../../../assets/images/zs/zubircompose.jpeg';
 
-import {
-    Button
-} from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 
-class PicGallery extends Component {   
+const PicGallery = () => {
+    //changed to usestate - so that do not need to use this. below.
+    const [index, setIndex] = useState(0);
 
-    state = {
-        index: 0, 
-        picList: [Zubirold, Zubirpres, Zubirscore]
-      }
+    const picList = [Zubirold, Zubirpres, Zubirscore];
 
-      onClickNext= () => {
-          if (this.state.index + 1 === this.state.picList.length ){
-              this.setState({ 
-                  index: 0 
-                })
-            } else {
-                this.setState({
-                    index: this.state.index + 1
-                })
-            }
+    //made changes to show the buttons conditionally
+    const onClickNext = () => {
+        setIndex(index + 1);
+        // if (index + 1 === picList.length) {
+        //     setIndex(0);
+        // } else {
+        //     var ind = ind + 1;
+        //     setIndex(ind);
+        // }
+    };
+    const onClickPrevious = () => {
+        setIndex(index - 1);
+        // var ind;
+        // if (index - 1 === -1) {
+        //     ind = picList.length - 1;
+        //     setIndex(ind);
+        // } else {
+        //     ind = ind - 1;
+        //     setIndex(ind);
+        // }
+    };
 
-          }
-          onClickPrevious= () => {
-            if (this.state.index - 1 === -1 ){
-                this.setState({ 
-                    index: this.state.picList.length - 1
-                  })
-              } else {
-                  this.setState({
-                      index: this.state.index - 1
-                  })
-              }
-            }
-      
-      render() {
-        return (
-          <div>
-            <img src={this.state.picList[this.state.index]} width="600px"/> <br/>
-            <Button variant="contained" disableElevation onClick={this.onClickPrevious}> Previous </Button>
-            <Button variant="contained" disableElevation onClick={this.onClickNext} style={{"margin-left":"5px", }}> Next </Button>
-          </div>
-        );
-      }
+    return (
+        <div>
+            <img src={picList[index]} width="100%" height="100%" alt="Zubir Said" /> <br />
+            <Grid container alignItems="center" justifyContent="center" direction="row" spacing={2}>
+                <Grid item>
+                    <Typography variant="subtitle2" color="inherit">
+                        {index > 0 && (
+                            <Button variant="contained" color="secondary" disableElevation onClick={onClickPrevious}>
+                                {' '}
+                                Previous{' '}
+                            </Button>
+                        )}
+                    </Typography>
+                </Grid>
 
-}
-
+                <Grid item>
+                    <Typography variant="subtitle2" color="inherit">
+                        {index < picList.length - 1 && (
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                disableElevation
+                                onClick={onClickNext}
+                                style={{ 'margin-left': '5px' }}
+                            >
+                                {' '}
+                                Next{' '}
+                            </Button>
+                        )}
+                    </Typography>
+                </Grid>
+            </Grid>
+        </div>
+    );
+};
 
 export default PicGallery;

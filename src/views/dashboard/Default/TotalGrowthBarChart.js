@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 // material-ui
-import { Grid, MenuItem, TextField, Typography, useTheme } from '@material-ui/core';
+import { Grid, Typography, useTheme } from '@material-ui/core';
+// import { MenuItem, TextField } from '@material-ui/core';
 
 // third-party
-import ApexCharts from 'apexcharts';
-import Chart from 'react-apexcharts';
+// import ApexCharts from 'apexcharts';
+// import Chart from 'react-apexcharts';
 
 // project imports
 import SkeletonTotalGrowthBarChart from './../../../ui-component/cards/Skeleton/TotalGrowthBarChart';
@@ -14,29 +15,29 @@ import MainCard from './../../../ui-component/cards/MainCard';
 import { gridSpacing } from './../../../store/constant';
 
 // chart data
-import chartData from './chart-data/total-growth-bar-chart';
+// import chartData from './chart-data/total-growth-bar-chart';
 
 import PicGallery from './PicGallery';
 
-const status = [
-    {
-        value: 'today',
-        label: 'Today'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'year',
-        label: 'This Year'
-    }
-];
+// const status = [
+//     {
+//         value: 'today',
+//         label: 'Today'
+//     },
+//     {
+//         value: 'month',
+//         label: 'This Month'
+//     },
+//     {
+//         value: 'year',
+//         label: 'This Year'
+//     }
+// ];
 
 //-----------------------|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||-----------------------//
 
 const TotalGrowthBarChart = ({ isLoading }) => {
-    const [value, setValue] = React.useState('today');
+    // const [value, setValue] = React.useState('today');
     const theme = useTheme();
 
     const primary = theme.palette.text.primary;
@@ -49,36 +50,35 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     const grey500 = theme.palette.grey[500];
 
     React.useEffect(() => {
-        const newChartData = {
-            ...chartData.options,
-            colors: [primary200, primaryDark, secondaryMain, secondaryLight],
-            xaxis: {
-                labels: {
-                    style: {
-                        colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary]
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: [primary]
-                    }
-                }
-            },
-            grid: {
-                borderColor: grey200
-            },
-            tooltip: {
-                theme: 'light'
-            },
-            legend: {
-                labels: {
-                    colors: grey500
-                }
-            }
-        };
-
+        // const newChartData = {
+        //     ...chartData.options,
+        //     colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+        //     xaxis: {
+        //         labels: {
+        //             style: {
+        //                 colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary]
+        //             }
+        //         }
+        //     },
+        //     yaxis: {
+        //         labels: {
+        //             style: {
+        //                 colors: [primary]
+        //             }
+        //         }
+        //     },
+        //     grid: {
+        //         borderColor: grey200
+        //     },
+        //     tooltip: {
+        //         theme: 'light'
+        //     },
+        //     legend: {
+        //         labels: {
+        //             colors: grey500
+        //         }
+        //     }
+        // };
         // do not load chart when loading
         // if (!isLoading) {
         //     ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
@@ -104,7 +104,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                        <PicGallery/>
+                            <PicGallery />
                         </Grid>
                     </Grid>
                 </MainCard>
