@@ -19,6 +19,9 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
+//Music Player
+import ReactPlayer from "react-player";
+
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -112,56 +115,33 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
                     <Grid container direction="column">
-                        <Grid item>
-                            <Grid container justifyContent="space-between">
-                                <Grid item>
-                                    <Avatar variant="rounded" className={classes.avatar}>
-                                        <LocalMallOutlinedIcon fontSize="inherit" />
-                                    </Avatar>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        disableElevation
-                                        variant={timeValue ? 'contained' : 'string'}
-                                        size="small"
-                                        onClick={(e) => handleChangeTime(e, true)}
-                                    >
-                                        Month
-                                    </Button>
-                                    <Button
-                                        disableElevation
-                                        variant={!timeValue ? 'contained' : 'string'}
-                                        size="small"
-                                        onClick={(e) => handleChangeTime(e, false)}
-                                    >
-                                        Year
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                        
                         <Grid item sx={{ mb: 0.75 }}>
                             <Grid container alignItems="center">
                                 <Grid item xs={6}>
                                     <Grid container alignItems="center">
-                                        <Grid item>
-                                            {timeValue ? (
-                                                <Typography className={classes.cardHeading}>$108</Typography>
-                                            ) : (
-                                                <Typography className={classes.cardHeading}>$961</Typography>
-                                            )}
-                                        </Grid>
-                                        <Grid item>
-                                            <Avatar className={classes.avatarCircle}>
-                                                <ArrowDownwardIcon fontSize="inherit" className={classes.circleIcon} />
-                                            </Avatar>
-                                        </Grid>
                                         <Grid item xs={12}>
-                                            <Typography className={classes.subHeading}>Song Player</Typography>
+                                            <Typography className={classes.cardHeading}>Works of Zubir Said</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={6}>
-                                    {timeValue ? <Chart {...ChartDataMonth} /> : <Chart {...ChartDataYear} />}
+                                <Grid item xs={12}>
+                                    <ReactPlayer
+                                        url={[
+                                            'https://www.youtube.com/watch?v=yLubShIIekg',
+                                            'https://www.youtube.com/watch?v=OLTlSVj9CmE',
+                                            'https://www.youtube.com/watch?v=taeFJkpqxdo',
+                                            'https://www.youtube.com/watch?v=9YQNxLuNfg0',
+                                            'https://www.youtube.com/watch?v=A5MBehlZn1k',
+                                            'https://www.youtube.com/watch?v=9FuFei0YiAc',
+                                            'https://www.youtube.com/watch?v=nq5o_Ah2K4c',
+                                            'https://www.youtube.com/watch?v=Cx7b2VPh-eM'
+                                        ]}
+                                        width="100%"
+                                        height="310px"
+                                        playing={false}
+                                        controls={true}
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>
