@@ -77,10 +77,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '8px'
     },
     cardHeading: {
-        fontSize: '2.125rem',
+        fontSize: '1.3rem',
         fontWeight: 500,
         marginRight: '8px',
-        marginTop: '14px',
         marginBottom: '6px'
     },
     subHeading: {
