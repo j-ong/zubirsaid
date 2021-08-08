@@ -122,7 +122,7 @@ const TotalNodesCard = ({ isLoading, songsCount }) => {
                 <SkeletonEarningCard />
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                    <Grid height="425px" container direction="column">
+                    <Grid container direction="column">
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
@@ -171,30 +171,15 @@ const TotalNodesCard = ({ isLoading, songsCount }) => {
                                 <Grid item>
                                     <Typography className={classes.cardHeading}>{songsCount}</Typography>
                                 </Grid>
+                                <Grid item>
+                                    <Avatar className={classes.avatarCircle}>
+                                        <ArrowUpwardIcon fontSize="inherit" className={classes.circleIcon} />
+                                    </Avatar>
+                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
                             <Typography className={classes.subHeading}>Total Songs</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Grid container alignItems="center">
-                                <Grid item>
-                                    <Typography className={classes.cardHeading}>1928 - 1987</Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Composition Period</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Grid container alignItems="center">
-                                <Grid item>
-                                    <Typography className={classes.cardHeading}>Universal Music Group</Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Music Label</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>
