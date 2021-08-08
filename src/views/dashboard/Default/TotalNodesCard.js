@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 // assets
 // import EarningIcon from './../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+// import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +122,7 @@ const TotalNodesCard = ({ isLoading, songsCount }) => {
                 <SkeletonEarningCard />
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                    <Grid height="425px" container direction="column">
+                    <Grid container direction="column">
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
