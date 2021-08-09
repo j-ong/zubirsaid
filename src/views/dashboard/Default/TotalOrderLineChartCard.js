@@ -3,24 +3,25 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+// import { Avatar, Button } from '@material-ui/core';
 
 // third-party
-import Chart from 'react-apexcharts';
+// import Chart from 'react-apexcharts';
 
 // project imports
 import MainCard from './../../../ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from './../../../ui-component/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
+// import ChartDataMonth from './chart-data/total-order-month-line-chart';
+// import ChartDataYear from './chart-data/total-order-year-line-chart';
 
 // assets
-import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+// import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
+// import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 //Music Player
-import ReactPlayer from "react-player";
+import ReactPlayer from 'react-player';
 
 import { gridSpacing } from './../../../store/constant';
 
@@ -79,10 +80,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '8px'
     },
     cardHeading: {
-        fontSize: '2.125rem',
+        fontSize: '1.3rem',
         fontWeight: 500,
         marginRight: '8px',
-        marginTop: '14px',
         marginBottom: '6px'
     },
     subHeading: {
@@ -106,10 +106,10 @@ const useStyles = makeStyles((theme) => ({
 const TotalOrderLineChartCard = ({ isLoading }) => {
     const classes = useStyles();
 
-    const [timeValue, setTimeValue] = React.useState(false);
-    const handleChangeTime = (event, newValue) => {
-        setTimeValue(newValue);
-    };
+    // const [timeValue, setTimeValue] = React.useState(false);
+    // const handleChangeTime = (event, newValue) => {
+    //     setTimeValue(newValue);
+    // };
 
     return (
         <React.Fragment>
@@ -118,7 +118,6 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
                     <Grid container direction="column">
-                        
                         <Grid item sx={{ mb: 0.75 }}>
                             <Grid container alignItems="center" spacing={gridSpacing}>
                                 <Grid item xs={6}>
@@ -141,7 +140,6 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             'https://www.youtube.com/watch?v=Cx7b2VPh-eM'
                                         ]}
                                         width="100%"
-                                        height="310px"
                                         playing={false}
                                         controls={true}
                                     />
