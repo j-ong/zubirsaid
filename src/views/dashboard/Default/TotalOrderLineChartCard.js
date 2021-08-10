@@ -23,6 +23,9 @@ import SkeletonTotalOrderCard from './../../../ui-component/cards/Skeleton/Earni
 //Music Player
 import ReactPlayer from 'react-player';
 
+import { gridSpacing } from './../../../store/constant';
+
+
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -116,11 +119,11 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
                     <Grid container direction="column">
                         <Grid item sx={{ mb: 0.75 }}>
-                            <Grid container alignItems="center">
+                            <Grid container alignItems="center" spacing={gridSpacing}>
                                 <Grid item xs={6}>
                                     <Grid container alignItems="center">
-                                        <Grid item xs={12}>
-                                            <Typography className={classes.cardHeading}>Works of Zubir Said</Typography>
+                                        <Grid item>
+                                            <Typography variant="h3">Works of Zubir Said </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
