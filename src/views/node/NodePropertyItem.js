@@ -32,6 +32,9 @@ import ReactPlayer from 'react-player/youtube';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import retrieveInfo from '../../connectionObject/connectionObject';
+import cytoscape from 'cytoscape';
+import CytoscapeSegment from './CytoscapeSegment';
 // import { borderColor, borderTop } from '@material-ui/system';
 
 // style constant
@@ -440,6 +443,11 @@ const NodePropertyItem = ({ loading, property }) => {
                             </Grid>
                         </Grid>
                     </CardContent>
+                    <Divider className={classes.divider} />
+                    <CardContent>
+                        <h2>Cytoscape:</h2>
+                    </CardContent>
+                    <Divider className={classes.divider} />
                     <CardActions className={classes.cardAction}>
                         <Link to={`/node/${property.id}`} style={{ textDecoration: 'none' }}>
                             <Button size="small" disableElevation>
