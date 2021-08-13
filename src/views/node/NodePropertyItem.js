@@ -34,7 +34,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import retrieveInfo from '../../connectionObject/connectionObject';
 import cytoscape from 'cytoscape';
-import CytoscapeSegment from './CytoscapeSegment';
+import Cytoscape from './CytoscapeComponent';
+import CytoscapeComponent from 'react-cytoscapejs/src/component';
 // import { borderColor, borderTop } from '@material-ui/system';
 
 // style constant
@@ -225,7 +226,6 @@ const NodePropertyItem = ({ loading, property }) => {
             );
         }
     };
-
     return (
         <React.Fragment>
             {loading ? (
@@ -445,7 +445,22 @@ const NodePropertyItem = ({ loading, property }) => {
                     </CardContent>
                     <Divider className={classes.divider} />
                     <CardContent>
-                        <h2>Cytoscape:</h2>
+                        <h2>Relations (Cytoscape)</h2>
+                        <Cytoscape
+                            height={200}
+                            width={200}
+                            elements={CytoscapeComponent.normalizeElements({
+                                nodes: [
+                                    { data: { id: 'one', label: 'Node 1' }, position: { x: 50, y: 100 } },
+                                    { data: { id: 'two', label: 'Node 2' }, position: { x: 150, y: 100 } }
+                                ],
+                                edges: [
+                                    {
+                                        data: { source: 'one', target: 'two', label: 'Edge from Node1 to Node2' }
+                                    }
+                                ]
+                            })}
+                        />
                     </CardContent>
                     <Divider className={classes.divider} />
                     <CardActions className={classes.cardAction}>
