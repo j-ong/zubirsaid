@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, MenuItem } from '@material-ui/core';
 // import { Avatar, Button } from '@material-ui/core';
 
 // third-party
@@ -24,6 +24,10 @@ import SkeletonTotalOrderCard from './../../../ui-component/cards/Skeleton/Earni
 import ReactPlayer from 'react-player';
 
 import { gridSpacing } from './../../../store/constant';
+
+import { Link } from 'react-router-dom';
+
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
 
 // style constant
@@ -103,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
 
 //-----------------------|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||-----------------------//
 
-const TotalOrderLineChartCard = ({ isLoading }) => {
+const TotalOrderLineChartCard = ({ isLoading, songList }) => {
     const classes = useStyles();
 
     // const [timeValue, setTimeValue] = React.useState(false);
@@ -120,25 +124,21 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                     <Grid container direction="column">
                         <Grid item sx={{ mb: 0.75 }}>
                             <Grid container alignItems="center" spacing={gridSpacing}>
-                                <Grid item xs={6}>
-                                    <Grid container alignItems="center">
+                                <Grid container alignItems="center" justifyContent="space-between" >
                                         <Grid item>
-                                            <Typography variant="h3">Works of Zubir Said </Typography>
+                                            <Typography variant="h3" paddingTop="20px" paddingLeft="25px">Works of Zubir Said </Typography>
                                         </Grid>
-                                    </Grid>
+                                        <Grid item paddingTop="20px">
+                                           <Link to={`/node/MusicalWork`} style={{ textDecoration: 'none', color: 'black' }}>
+                                                <MenuItem>
+                                                    <MusicNoteIcon fontSize="inherit" className={classes.menuItem} /> View song list
+                                                </MenuItem>
+                                            </Link>
+                                        </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <ReactPlayer
-                                        url={[
-                                            'https://www.youtube.com/watch?v=yLubShIIekg',
-                                            'https://www.youtube.com/watch?v=OLTlSVj9CmE',
-                                            'https://www.youtube.com/watch?v=taeFJkpqxdo',
-                                            'https://www.youtube.com/watch?v=9YQNxLuNfg0',
-                                            'https://www.youtube.com/watch?v=A5MBehlZn1k',
-                                            'https://www.youtube.com/watch?v=9FuFei0YiAc',
-                                            'https://www.youtube.com/watch?v=nq5o_Ah2K4c',
-                                            'https://www.youtube.com/watch?v=Cx7b2VPh-eM'
-                                        ]}
+                                        url={songList}
                                         width="100%"
                                         playing={false}
                                         controls={true}
