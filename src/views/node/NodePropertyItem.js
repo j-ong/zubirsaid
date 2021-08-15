@@ -451,12 +451,12 @@ const NodePropertyItem = ({ loading, property }) => {
                             width={200}
                             elements={CytoscapeComponent.normalizeElements({
                                 nodes: [
-                                    { data: { id: 'one', label: 'Node 1' }, position: { x: 50, y: 100 } },
+                                    { data: { id: 'node_' + property.id, label: property.id }, position: { x: 50, y: 100 } },
                                     { data: { id: 'two', label: 'Node 2' }, position: { x: 150, y: 100 } }
                                 ],
                                 edges: [
                                     {
-                                        data: { source: 'one', target: 'two', label: 'Edge from Node1 to Node2' }
+                                        data: { source: 'node_' + property.id, target: 'two', label: 'Edge from Node1 to Node2' }
                                     }
                                 ]
                             })}
