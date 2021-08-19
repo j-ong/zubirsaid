@@ -12,6 +12,8 @@ const MainlistReducer = (state, action) => {
             return {
                 ...state,
                 nodes: action.payload,
+                cytoscape_nodes:action.payload_cytoscape_nodes,
+                cytoscape_edges:action.payload_cytoscape_edges,
                 nodeSummary: action.summary,
                 loading: false
             };

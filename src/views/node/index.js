@@ -32,7 +32,7 @@ import Cytoscape from './CytoscapeComponent';
 
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
-    const { nodes, getNodes, nodeSummary, loading } = mainlistContext;
+    const { nodes, cytoscape_nodes,cytoscape_edges, getNodes, nodeSummary, loading } = mainlistContext;
     const [value, setValue] = React.useState("0");
 
     const handleChange = (event, newValue) => {
@@ -47,7 +47,6 @@ const Node = ({ match }) => {
 
 
     console.log(match);
-
     return (
         <MainCard title={nodeSummary.label}>
             <TabContext value={value}>
@@ -83,21 +82,24 @@ const Node = ({ match }) => {
                     width={600}
                     elements={CytoscapeComponent.normalizeElements(
                 {
-                        nodes: [
-                            { data: { id: 'node_' + "test", label: "main_node"},
-                                position: { x: 50, y: 100 } },
-                            { data: { id: 'two', label: 'Node 2' },
-                                position: { x: 150, y: 100 } }
-                        ],
-                        edges: [
-                            {
-                                data: {
-                                    source: 'node_' + "test",
-                                    target: 'two',
-                                    label: 'Edge from Node1 to Node2'
-                                }
-                            }
-                        ]
+                        nodes: cytoscape_nodes
+                            // [
+                            //     { data: { id: 'node_' + "test", label: "main_node"},
+                            //         position: { x: 50, y: 100 } },
+                            //     { data: { id: 'two', label: 'Node 2' },
+                            //         position: { x: 150, y: 100 } }
+                            // ]
+                        ,
+                        edges:cytoscape_edges
+                            // [
+                            // {
+                            //     data: {
+                            //         source: 'node_' + "test",
+                            //         target: 'two',
+                            //         label: 'Edge from Node1 to Node2'
+                            //     }
+                            // }
+                            // ]
                         }
                     )}
                 />

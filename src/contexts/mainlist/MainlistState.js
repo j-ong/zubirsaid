@@ -49,7 +49,7 @@ const MainlistState = (props) => {
         /*Cytoscape Portion (START)*/
         let cytoscape_main_node = 'node_' + data[0]._fields[0].properties.id
         let current_node_name = '';
-        let ctyoscape_nodes = [
+        let cytoscape_nodes = [
             {
                 data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
                 position: { x: 50, y: 100 }
@@ -75,7 +75,7 @@ const MainlistState = (props) => {
 
             /*Cytoscape Portion (START)*/
             current_node_name = "node_" + data[i]._fields[2].properties.id
-            ctyoscape_nodes.push(
+            cytoscape_nodes.push(
                 {
                     data:     { id: current_node_name,
                                 label: data[i]._fields[2].properties.label},
@@ -111,20 +111,14 @@ const MainlistState = (props) => {
             // }
         }
 
-        /*Cytoscape Portion (START)*/
-        let cytoscape_elements = {
-            nodes: ctyoscape_nodes,
-            edges: cytoscape_edges
-        }
-        console.log("CytoscapeElements:");
-        console.log(cytoscape_elements);
-        /*Cytoscape Portion (END)*/
 
         var nodeSummary = data[0]._fields[0].properties;
 
         dispatch({
             type: GET_NODES,
             payload: nodeArray,
+            payload_cytoscape_nodes:cytoscape_nodes,
+            payload_cytoscape_edges:cytoscape_edges,
             summary: nodeSummary
         });
     };
@@ -137,6 +131,8 @@ const MainlistState = (props) => {
             value={{
                 cards: state.cards,
                 nodes: state.nodes,
+                cytoscape_nodes: state.cytoscape_nodes,
+                cytoscape_edges: state.cytoscape_edges,
                 nodeSummary: state.nodeSummary,
                 loading: state.loading,
                 getCards,
