@@ -39,11 +39,14 @@ const Node = ({ match }) => {
         setValue(newValue);
     };
 
-
     useEffect(() => {
+        //supplies the nodeid to src/contexts/mainlist/MainlistState.js
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+
+    console.log(match);
 
     return (
         <MainCard title={nodeSummary.label}>
@@ -56,7 +59,9 @@ const Node = ({ match }) => {
             </Box>
             <TabPanel value="0">
             <Grid container spacing={gridSpacing}>
-                {nodes.map((node) => (
+
+                {
+                    nodes.map((node) => (
                     <Grid item xs={12} sm={12} key={node.group}>
                         <SubCard title={node.group}>
                             <Grid container spacing={gridSpacing}>
@@ -74,19 +79,27 @@ const Node = ({ match }) => {
             <TabPanel value="1">
                 <h2>Cytoscape:</h2>
                 <Cytoscape
-                    height={200}
-                    width={200}
-                    elements={CytoscapeComponent.normalizeElements({
+                    height={600}
+                    width={600}
+                    elements={CytoscapeComponent.normalizeElements(
+                {
                         nodes: [
-                            { data: { id: 'node_' + "test", label: "main_node"}, position: { x: 50, y: 100 } },
-                            { data: { id: 'two', label: 'Node 2' }, position: { x: 150, y: 100 } }
+                            { data: { id: 'node_' + "test", label: "main_node"},
+                                position: { x: 50, y: 100 } },
+                            { data: { id: 'two', label: 'Node 2' },
+                                position: { x: 150, y: 100 } }
                         ],
                         edges: [
                             {
-                                data: { source: 'node_' + "test", target: 'two', label: 'Edge from Node1 to Node2' }
+                                data: {
+                                    source: 'node_' + "test",
+                                    target: 'two',
+                                    label: 'Edge from Node1 to Node2'
+                                }
                             }
                         ]
-                    })}
+                        }
+                    )}
                 />
             </TabPanel>
             </TabContext>

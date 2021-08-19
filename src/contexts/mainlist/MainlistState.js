@@ -38,8 +38,26 @@ const MainlistState = (props) => {
         const res = await axios.get(`https://chriskhoo.net/ZS/0/${nodeid}`);
 
         var data = res.data;
+
+        /*For Testing Purposes*/
+        console.log(res.data);
+
         var loopData = [];
         var groups = [];
+
+
+        /*Cytoscape Portion (START)*/
+        let cytoscape_main_node = 'node_' + data[0]._fields[0].properties.id
+        let current_node_name = '';
+        let ctyoscape_nodes = [
+            {
+                data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
+                position: { x: 50, y: 100 }
+            },
+        ];
+        let cytoscape_edges = [];
+        /*Cytoscape Portion (END)*/
+
         for (var i = 0; i < data.length; i++) {
             loopData.push(data[i]._fields);
 
@@ -53,6 +71,27 @@ const MainlistState = (props) => {
                 groups[groupName] = [];
             }
             groups[groupName].push(data[i]._fields[2].properties);
+
+
+            /*Cytoscape Portion (START)*/
+            current_node_name = "node_" + data[i]._fields[2].properties.id
+            ctyoscape_nodes.push(
+                {
+                    data:     { id: current_node_name,
+                                label: data[i]._fields[2].properties.label},
+                    position: { x: 50, y: 100 }
+                },
+            );
+            cytoscape_edges.push(
+                {
+                    data: {
+                        source: cytoscape_main_node,
+                        target: current_node_name,
+                        label: data[i]._fields[1].type
+                    }
+                }
+            );
+            /*Cytoscape Portion (END)*/
         }
 
         //push grouped results into nodeArray based on i.e. realization
@@ -71,6 +110,15 @@ const MainlistState = (props) => {
             //     });
             // }
         }
+
+        /*Cytoscape Portion (START)*/
+        let cytoscape_elements = {
+            nodes: ctyoscape_nodes,
+            edges: cytoscape_edges
+        }
+        console.log("CytoscapeElements:");
+        console.log(cytoscape_elements);
+        /*Cytoscape Portion (END)*/
 
         var nodeSummary = data[0]._fields[0].properties;
 
