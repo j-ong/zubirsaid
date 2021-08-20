@@ -80,28 +80,10 @@ const Node = ({ match }) => {
                 <Cytoscape
                     height={600}
                     width={600}
-                    elements={CytoscapeComponent.normalizeElements(
-                {
-                        nodes: cytoscape_nodes
-                            // [
-                            //     { data: { id: 'node_' + "test", label: "main_node"},
-                            //         position: { x: 50, y: 100 } },
-                            //     { data: { id: 'two', label: 'Node 2' },
-                            //         position: { x: 150, y: 100 } }
-                            // ]
-                        ,
-                        edges:cytoscape_edges
-                            // [
-                            // {
-                            //     data: {
-                            //         source: 'node_' + "test",
-                            //         target: 'two',
-                            //         label: 'Edge from Node1 to Node2'
-                            //     }
-                            // }
-                            // ]
-                        }
-                    )}
+                    elements={CytoscapeComponent.normalizeElements({
+                            nodes:cytoscape_nodes,
+                            edges:cytoscape_edges
+                    })}
                 />
             </TabPanel>
             </TabContext>
