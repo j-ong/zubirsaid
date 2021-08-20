@@ -3,6 +3,7 @@ import axios from 'axios';
 import MainlistContext from './mainlistContext';
 import MainlistReducer from './mainlistReducer';
 import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
+import { nodeStyle,edgeStyle } from '../../views/node/CytoscapeComponent';
 
 const MainlistState = (props) => {
     const initialState = {
@@ -52,7 +53,8 @@ const MainlistState = (props) => {
         let cytoscape_nodes = [
             {
                 data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
-                position: { x: 50, y: 100 }
+                // position: { x: 50, y: 100 }
+                style:nodeStyle
             },
         ];
         let cytoscape_edges = [];
@@ -78,17 +80,22 @@ const MainlistState = (props) => {
             cytoscape_nodes.push(
                 {
                     data:     { id: current_node_name,
-                                label: data[i]._fields[2].properties.label},
-                    position: { x: 50, y: 100 }
+                                label: data[i]._fields[2].properties.label,
+                    },
+                    style:nodeStyle
+
+                    // position: { x: 50, y: 100 }
                 },
             );
             cytoscape_edges.push(
                 {
                     data: {
+                        id: "edge_" + cytoscape_main_node + "_" + current_node_name,
                         source: cytoscape_main_node,
                         target: current_node_name,
                         label: data[i]._fields[1].type
-                    }
+                    },
+                    style:edgeStyle
                 }
             );
             /*Cytoscape Portion (END)*/

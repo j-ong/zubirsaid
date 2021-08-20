@@ -26,14 +26,16 @@ import { gridSpacing } from './../../store/constant';
 import retrieveInfo from '../../connectionObject/connectionObject';
 import cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
-import Cytoscape from './CytoscapeComponent';
+import {CytoscapeObj, ReactCytoscapeCola} from './CytoscapeComponent';
+import {ReactCytoscape} from 'react-cytoscape';
+
 
 //==============================|| SAMPLE PAGE ||==============================//
 
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
     const { nodes, cytoscape_nodes,cytoscape_edges, getNodes, nodeSummary, loading } = mainlistContext;
-    const [value, setValue] = React.useState("0");
+    const [value, setValue] = React.useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -45,6 +47,10 @@ const Node = ({ match }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
+    const funcCytoscapeCola = () =>{
+        console.log("Callback function");
+    }
 
     console.log(match);
     return (
@@ -77,12 +83,13 @@ const Node = ({ match }) => {
             </TabPanel>
             <TabPanel value="1">
                 <h2>Cytoscape:</h2>
-                <Cytoscape
+                <CytoscapeObj
                     height={600}
                     width={600}
-                    elements={CytoscapeComponent.normalizeElements({
-                            nodes:cytoscape_nodes,
-                            edges:cytoscape_edges
+                    elements={
+                        CytoscapeComponent.normalizeElements({
+                        nodes:cytoscape_nodes,
+                        edges:cytoscape_edges
                     })}
                 />
             </TabPanel>
