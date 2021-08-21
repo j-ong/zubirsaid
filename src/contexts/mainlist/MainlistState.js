@@ -3,7 +3,7 @@ import axios from 'axios';
 import MainlistContext from './mainlistContext';
 import MainlistReducer from './mainlistReducer';
 import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
-import { nodeStyle,edgeStyle } from '../../views/node/CytoscapeComponent';
+import { nodeStyle, nodeMainStyle, edgeStyle, } from '../../views/node/CytoscapeComponent';
 
 const MainlistState = (props) => {
     const initialState = {
@@ -54,7 +54,7 @@ const MainlistState = (props) => {
             {
                 data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
                 // position: { x: 50, y: 100 }
-                style:nodeStyle
+                style:nodeMainStyle(data[0]._fields[0].properties.label)
             },
         ];
         let cytoscape_edges = [];
@@ -79,13 +79,15 @@ const MainlistState = (props) => {
             current_node_name = "node_" + data[i]._fields[2].properties.id
             cytoscape_nodes.push(
                 {
-                    data:     { id: current_node_name,
-                                label: data[i]._fields[2].properties.label,
+                    data:     {
+                        id: current_node_name,
+                        label: data[i]._fields[2].properties.label,
+
                     },
-                    style:nodeStyle
+                    style:nodeStyle(data[i]._fields[2].properties.label)
 
                     // position: { x: 50, y: 100 }
-                },
+                }
             );
             cytoscape_edges.push(
                 {
@@ -93,10 +95,9 @@ const MainlistState = (props) => {
                         id: "edge_" + cytoscape_main_node + "_" + current_node_name,
                         source: cytoscape_main_node,
                         target: current_node_name,
-                        label: data[i]._fields[1].type
                     },
-                    style:edgeStyle
-                }
+                    style:edgeStyle(data[i]._fields[1].type)
+                },
             );
             /*Cytoscape Portion (END)*/
         }

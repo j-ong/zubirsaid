@@ -7,12 +7,54 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import cola from 'cytoscape-cola';
 
 
-export const nodeStyle={
-    shape:'rectangle',
-    boundingBox:true,
+export const nodeStyle=(label=null)=>{
+    return(
+        {
+            shape:'round-rectangle',
+            boundingBox:true,
+            "text-max-width":20,
+            "font-size":10,
+            "compound-sizing-wrt-labels":"include",
+            "text-wrap":"wrap",
+            "text-overflow-wrap":"whitespace",
+            "text-halign":"center",
+            "text-valign":"center",
+        }
+    )
 }
-export const edgeStyle={
 
+export const nodeMainStyle=(label=null)=>{
+    return(
+        {
+            label:label,
+            shape:'circle',
+            boundingBox:true,
+            "text-max-width":20,
+            "background-color":"#add8e6",
+            "font-size":10,
+            "compound-sizing-wrt-labels":"include",
+            "text-wrap":"wrap",
+            "text-overflow-wrap":"whitespace",
+            "text-halign":"center",
+            "text-valign":"center",
+        }
+    )
+}
+
+
+export const edgeStyle=(label=null)=>{
+    return(
+        {
+            label:label,
+            "text-rotation":"autorotate",
+            "font-size":10,
+            "text-wrap":"wrap",
+            "text-max-width":100,
+            "text-overflow-wrap":"whitespace",
+            "text-halign":"center",
+            "text-valign":"top",
+        }
+    )
 }
 
 
@@ -71,7 +113,6 @@ export class CytoscapeObj extends React.Component {
                 return(
                 <React.Fragment>
                     <CytoscapeComponent
-                        //stylesheet={this.state.cytoscape_style}
                         style={{
                             height:this.state.height,
                             width:this.state.width}}
