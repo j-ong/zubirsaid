@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState } from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -107,14 +107,15 @@ const useStyles = makeStyles((theme) => ({
 
 //-----------------------|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||-----------------------//
 
-const TotalOrderLineChartCard = ({ isLoading, songList }) => {
+const TotalOrderLineChartCard = ({ isLoading, songList}) => {
     const classes = useStyles();
-
-    // const [timeValue, setTimeValue] = React.useState(false);
-    // const handleChangeTime = (event, newValue) => {
-    //     setTimeValue(newValue);
-    // };
-
+    const [isOpened, setIsOpened] = useState(false);
+    const [url, setUrl] = useState("")
+      const load = url => {
+        setIsOpened(true)
+        setUrl(url)
+      }
+   
     return (
         <React.Fragment>
             {isLoading ? (
@@ -136,13 +137,30 @@ const TotalOrderLineChartCard = ({ isLoading, songList }) => {
                                             </Link>
                                         </Grid>
                                 </Grid>
+                                {isOpened && (
                                 <Grid item xs={12}>
                                     <ReactPlayer
-                                        url={songList}
+                                        url={url}
                                         width="100%"
                                         playing={false}
                                         controls={true}
                                     />
+                                </Grid>
+                                )}
+                                <Grid item xs={12}>
+                                    <div className="container">
+                                        <h3 style={{textAlign: 'center' }}>Video Playlist</h3>
+                                            <table className="table table-striped table-bordered">                                            
+                                                <tbody>
+                                                    { songList.map(song =>
+                                                         <tr style={{cursor: 'pointer' }}>
+                                                            <th onClick={() => load(song[0])}>{song[1]}</th>
+                                                        </tr>
+                                                        
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                     </div>
                                 </Grid>
                             </Grid>
                         </Grid>

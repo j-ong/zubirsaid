@@ -56,16 +56,16 @@ const Dashboard = () => {
         const data2 = res2.data
         var playlist = []
         for (var i = 1; i < data2.length; i++) {
-            console.log("accessed url")
-            console.log(data2[i]._fields[2].properties.accessURL)
             for(var t=0; t<data2[i]._fields[2].properties.accessURL.length; ++t) {
                 if(data2[i]._fields[2].properties.accessURL[t].includes('youtube')) {
-                    playlist.push(data2[i]._fields[2].properties.accessURL[t]);
+                    var newSong = []
+                    newSong.push(data2[i]._fields[2].properties.accessURL);
+                    newSong.push(data2[i]._fields[2].properties.label)
+                    playlist.push(newSong);
                 }  
             }
         } 
-        setSongList(playlist)      
-        
+        setSongList(playlist) 
     };
 
     const [isLoading, setLoading] = useState(true);
