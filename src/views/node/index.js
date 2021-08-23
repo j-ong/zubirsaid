@@ -10,7 +10,7 @@ import MainlistContext from '../../contexts/mainlist/mainlistContext';
 import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
-import { Grid, AppBar, Tabs, Tab, Box } from '@material-ui/core';
+import { Grid, Tab, Box } from '@material-ui/core';
 import {} from '@material-ui/core/styles';
 
 import {TabContext, TabPanel,TabList} from '@material-ui/lab';
@@ -23,10 +23,9 @@ import SubCard from './../../ui-component/cards/SubCard';
 import { gridSpacing } from './../../store/constant';
 
 //Cytoscape components
-import retrieveInfo from '../../connectionObject/connectionObject';
-import cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
-import Cytoscape from './CytoscapeComponent';
+import {CytoscapeObj} from './CytoscapeComponent';
+
 
 //==============================|| SAMPLE PAGE ||==============================//
 
@@ -77,12 +76,13 @@ const Node = ({ match }) => {
             </TabPanel>
             <TabPanel value="1">
                 <h2>Cytoscape:</h2>
-                <Cytoscape
+                <CytoscapeObj
                     height={600}
                     width={600}
-                    elements={CytoscapeComponent.normalizeElements({
-                            nodes:cytoscape_nodes,
-                            edges:cytoscape_edges
+                    elements={
+                        CytoscapeComponent.normalizeElements({
+                        nodes:cytoscape_nodes,
+                        edges:cytoscape_edges
                     })}
                 />
             </TabPanel>
