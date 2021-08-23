@@ -32,7 +32,7 @@ import {CytoscapeObj} from './CytoscapeComponent';
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
     const { nodes, cytoscape_nodes,cytoscape_edges, getNodes, nodeSummary, loading } = mainlistContext;
-    const [value, setValue] = React.useState("1");
+    const [value, setValue] = React.useState("0");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
