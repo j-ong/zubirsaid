@@ -3,7 +3,7 @@ import axios from 'axios';
 import MainlistContext from './mainlistContext';
 import MainlistReducer from './mainlistReducer';
 import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
-import { nodeStyle, nodeMainStyle, edgeStyle, } from '../../views/node/CytoscapeComponent';
+import { nodeStyle, nodeMainStyle, edgeStyle, } from '../../views/node/CytoscapeStyle';
 
 const MainlistState = (props) => {
     const initialState = {
@@ -95,6 +95,7 @@ const MainlistState = (props) => {
                         id: "edge_" + cytoscape_main_node + "_" + current_node_name,
                         source: cytoscape_main_node,
                         target: current_node_name,
+                        label:data[i]._fields[1].type,
                     },
                     style:edgeStyle(data[i]._fields[1].type)
                 },

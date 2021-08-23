@@ -32,10 +32,6 @@ import ReactPlayer from 'react-player/youtube';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import retrieveInfo from '../../connectionObject/connectionObject';
-import cytoscape from 'cytoscape';
-import Cytoscape from './CytoscapeComponent';
-import CytoscapeComponent from 'react-cytoscapejs/src/component';
 // import { borderColor, borderTop } from '@material-ui/system';
 
 // style constant
