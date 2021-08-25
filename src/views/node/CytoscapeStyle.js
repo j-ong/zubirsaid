@@ -52,3 +52,6 @@ export const edgeStyle=(label=null)=>{
     )
 }
 
+export const cytoscapeStylesheet = {
+
+}
