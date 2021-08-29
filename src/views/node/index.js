@@ -11,7 +11,6 @@ import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
 import { Grid, Tab, Box } from '@material-ui/core';
-import {} from '@material-ui/core/styles';
 
 import {TabContext, TabPanel,TabList} from '@material-ui/lab';
 // import { Typography } from '@material-ui/core';
@@ -43,9 +42,6 @@ const Node = ({ match }) => {
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-
-    console.log(match);
     return (
         <MainCard title={nodeSummary.label}>
             <TabContext value={value}>
@@ -75,7 +71,6 @@ const Node = ({ match }) => {
             </Grid>
             </TabPanel>
             <TabPanel value="1">
-                <h2>Cytoscape:</h2>
                 <CytoscapeObj
                     height={600}
                     width={600}

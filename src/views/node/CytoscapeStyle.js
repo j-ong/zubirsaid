@@ -21,7 +21,7 @@ export const nodeMainStyle=(label=null)=>{
             label:label,
             // boundingBox:true,
             // content:"data(label)",
-            "shape":'circle',
+            "shape":'ellipse',
             "text-wrap" : "wrap",
             "text-max-width" : "200px",
             "background-color":"#add8e6",

@@ -41,7 +41,7 @@ const MainlistState = (props) => {
         var data = res.data;
 
         /*For Testing Purposes*/
-        console.log(res.data);
+        // console.log(res.data);
 
         var loopData = [];
         var groups = [];
