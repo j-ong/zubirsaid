@@ -59,11 +59,13 @@ const Node = ({ match }) => {
                     <Grid item xs={12} sm={12} key={node.group}>
                         <SubCard title={node.group}>
                             <Grid container spacing={gridSpacing}>
-                                {node.properties.map((property) => (
+                                {
+                                    node.properties.map((property) => (
                                     <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
                                         <NodePropertyItem loading={loading} property={property} key={property.id} />
                                     </Grid>
-                                ))}
+                                ))
+                                }
                             </Grid>
                         </SubCard>
                     </Grid>

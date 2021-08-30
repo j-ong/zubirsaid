@@ -5,7 +5,6 @@ import React from "react";
 import CytoscapeComponent from 'react-cytoscapejs';
 import cola from 'cytoscape-cola';
 import Grid from '@material-ui/core/Grid';
-// import {DraggableDialog, DraggableDialog2} from './NodeDraggable'
 import{ DraggableDialog} from './NodeDraggable'
 
 
@@ -17,9 +16,13 @@ export class CytoscapeObj extends React.Component {
             width:300,
             height:300,
             elements:[],
-            listenersinit:false,
-            modal_array:{},
+            listenersInit:false,
             tempModal:false,
+            modal_arrayInit:false,
+            modal_array:[],
+            modal_obj:{},
+            cy:null,
+            test:"",
         };
 
         width=400;
@@ -29,9 +32,7 @@ export class CytoscapeObj extends React.Component {
             this.state.width = props.width;
             this.state.height = props.height;
             this.state.elements = props.elements;
-            this.state.listenersinit = false;
-            this.state.modal_array=Object.create({"key":"value"});
-            this.state.popup=[];
+            this.state.listenersInit = false;
         }
 
         componentDidMount =(width,height) => {
@@ -43,23 +44,45 @@ export class CytoscapeObj extends React.Component {
 
 
 
-        initListeners(current_obj) {
+        initListeners(home_object) {
+            let test_debug=true;
+            console.log(this.state.modal_array);
+            this.state.modal_array=[this.cy.nodes()[0].id().replace("node_","popup_")];
+            this.state.modal_obj={0:{}};
+
+            this.cy.nodes().forEach( node =>{
+
+                let popupId = node.id().replace("node_","popup_");
+
+                popupId !== this.state.modal_array[0] && this.state.modal_array.push(popupId);
+
+                this.state.modal_obj[popupId]= {itemID:popupId};
+                this.state.modal_obj[popupId].showChild = false;
+                node.showChild=true;
+            });
+            delete this.state.modal_obj[0];
+            // test_debug && console.log("modalArray");
+            // test_debug && console.log(this.state.modal_array);
+            // test_debug && console.log("modalObj");
+            // test_debug && console.log(this.state.modal_obj);
+
             this.cy.nodes().on('click',
                 function(e){
+                    // console.log(e);
                     let current_node_id = e.target.id();
-                    let rootId = e.target.id().replace("node_","");
-                    //console.log(`Target.id() =  ${current_node_id}`);
+                    test_debug && console.log("Elements");
+                    test_debug && console.log(e.cy.nodes());
                     let current_node = e.cy.nodes().getElementById(current_node_id);
+                    test_debug && console.log("Current Node");
+                    test_debug && console.log(current_node.addClass("showChild"));
+                    let popupId = current_node_id.replace("node_","popup_");
                     console.log(current_node);
-                    //makePopper(current_node,e.cy);
-                    let id_num = current_obj.state.popup.length;
-                    current_obj.state.popup.push(id_num+1);
-                    console.log(current_obj.state.popup);
+                    current_node.showChild=true;
 
-                    // ReactDOM.render(
-                    //     <DraggableDialog/>,
-                    //     "PopupDiv"
-                    // );
+                    current_node.data().showChild=true;
+                    // home_object.state.modal_obj[popupId].showChild=true;
+                    //test_debug &&  console.log(home_object.state.modal_obj[popupId]);
+
                 }
             );
         }
@@ -105,36 +128,119 @@ export class CytoscapeObj extends React.Component {
                     allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
             }
 
+        //
+        // renderDraggable(){
+        //
+        //     return(
+        //         <DraggableDialog
+        //             itemID={"a"}
+        //             showChild={true}
+        //         />
+        //     )
+        // }
+
 
 
         render(){
-            cytoscape.use(cola);
+            this.state.cyto = cytoscape.use(cola);
             return(
             <React.Fragment>
                 <Grid container>
                     <Grid itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
                         <h2>Cytoscape:</h2>
-                        <CytoscapeComponent
-                            style={{
-                                height:this.state.height,
-                                width:this.state.width,
-                            }}
-                            elements={this.state.elements}
-                            layout={this.layout}
-                            cy = {(cy)=>{
-                                this.cy=cy;
-                                if(!this.state.listenersinit){
-                                    this.initListeners(this);
-                                }
-                                this.state.listenersinit = true;
-                            }}
-                        />
+                        {
+                            this.state.cy =(
+                                <CytoscapeComponent
+                                    style={{
+                                        height:this.state.height,
+                                        width:this.state.width,
+                                    }}
+                                    elements={this.state.elements}
+                                    layout={this.layout}
+                                    cy = {(cy)=>{
+                                        this.cy=cy;
+                                        if(!this.state.listenersInit){
+                                            this.initListeners(this);
+                                        }
+                                        this.modal_array = this.state.modal_array;
+                                        this.modal_obj = this.state.modal_obj;
+                                        this.state.listenersInit = true;
+                                    }}
+                                />
+                            )
+                        }
                     </Grid>
 
                     <Grid itemID={"PopupBox"} bgcolor={"aliceblue"} sx={{ width: 1/2 }}>
                          <h2>Description:</h2>
                         <div itemID={"PopupDiv"}>
-                            <DraggableDialog/>
+                            <span>Test</span>
+                            {
+                                console.log("State.cy")
+                            }
+                            {
+                                console.log(this.state.cy.props.elements)
+                            }
+                            {/*{*/}
+                            {/*    !this.state.modal_arrayInit &&*/}
+                            {/*    this.state.cy.props.elements.forEach(element=>{*/}
+                            {/*            if(element.className.includes("nodes")){*/}
+                            {/*                let itemID = element.data.id.replace("node_","popup_");*/}
+                            {/*                this.state.modal_array.push(itemID);*/}
+                            {/*                this.state.modal_obj[itemID] = { itemID:itemID};*/}
+                            {/*                //this.state.modal_obj[itemID].showChild=false;*/}
+                            {/*                this.state.modal_arrayInit=true;*/}
+                            {/*            }*/}
+                            {/*        }*/}
+                            {/*    )*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    (this.state.modal_array.length>0) && this.state.cy.props.elements.map(element=>(*/}
+                            {/*            console.log(element)*/}
+                            {/*        )*/}
+                            {/*    )*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*(this.state.modal_array.length>0) && this.state.cy.props.elements.map(element=>(*/}
+                            {/*        console.log(`ShowChild:${element.data.showChild} Classes:${element.classes}`)*/}
+                            {/*    )*/}
+                            {/*)*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    (this.state.modal_array.length>0) && this.state.cy.props.elements.map(element=>(*/}
+                            {/*            element.classes.includes("showChild") &&*/}
+                            {/*            <DraggableDialog*/}
+                            {/*                itemID={element.data.id().replace("node_","popup_")}*/}
+                            {/*                showChild={true}*/}
+                            {/*            />*/}
+                            {/*        )*/}
+                            {/*    )*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    (this.state.modal_array.length>0) && this.state.cy.props.elements.map(element=>(*/}
+                            {/*            element.showChild &&*/}
+                            {/*            <DraggableDialog*/}
+                            {/*                itemID={element.data.id().replace("node_","popup_")}*/}
+                            {/*                showChild={true}*/}
+                            {/*            />*/}
+                            {/*        )*/}
+                            {/*    )*/}
+                            {/*}*/}
+                            {
+                                (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(
+                                    <DraggableDialog
+                                        itemID={this.state.modal_obj[item].itemID}
+                                        showChild={this.state.modal_obj[item].showChild}
+                                    />
+                                    )
+                                )
+                            }
+                            {
+                                (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(
+                                        console.log(this.state.modal_obj[item])
+                                    )
+                                )
+                            }
                         </div>
                     </Grid>
                 </Grid>

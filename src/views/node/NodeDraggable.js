@@ -4,12 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 export class DraggableDialog extends React.Component{
-    closeChild = () =>{
-        console.log("close");
-            this.state.showChild = false;
-    }
 
     state = {
+        node_id:"",
         activeDrags: 0,
         deltaPosition: {
             x: 0, y: 0
@@ -19,6 +16,18 @@ export class DraggableDialog extends React.Component{
         },
         showChild:true,
     };
+
+    constructor(props){
+        super(props);
+        this.state.node_id = props.node_id;
+        this.state.showChild = props.showChild;
+    }
+    closeChild = () =>{
+        console.log("close");
+            this.state.showChild = false;
+    }
+
+
 
     handleDrag = (e, ui) => {
         console.log(this.state.deltaPosition);
@@ -84,7 +93,6 @@ export class DraggableDialog extends React.Component{
     render() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
         const {deltaPosition, controlledPosition} = this.state;
-
         return (
         <React.Fragment>
             { this.state.showChild &&
@@ -92,7 +100,7 @@ export class DraggableDialog extends React.Component{
                     <div className="box no-cursor"  >
                         <strong className="cursor">
                             <Button className={"button"}>Drag</Button>
-                            <Button align={"right"} onClick={this.closeChild}>x</Button>
+                            <Button align={"right"} onClick={this.closeChild}>&times;</Button>
 
                         </strong>
                         <div>You must click my handle to drag me</div>

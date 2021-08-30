@@ -52,9 +52,16 @@ const MainlistState = (props) => {
         let current_node_name = '';
         let cytoscape_nodes = [
             {
-                data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
+                data:     {
+                    id: cytoscape_main_node,
+                    label: data[0]._fields[0].properties.label,
+                    showChild:false,
+                },
                 // position: { x: 50, y: 100 }
-                style:nodeMainStyle(data[0]._fields[0].properties.label)
+                style:nodeMainStyle(data[0]._fields[0].properties.label),
+                className:["nodes"],
+                classes:["nodes"],
+
             },
         ];
         let cytoscape_edges = [];
@@ -82,9 +89,11 @@ const MainlistState = (props) => {
                     data:     {
                         id: current_node_name,
                         label: data[i]._fields[2].properties.label,
-
+                        showChild:false,
                     },
-                    style:nodeStyle(data[i]._fields[2].properties.label)
+                    style:nodeStyle(data[i]._fields[2].properties.label),
+                    className:["nodes"],
+                    classes: ["nodes"],
 
                     // position: { x: 50, y: 100 }
                 }
@@ -96,8 +105,12 @@ const MainlistState = (props) => {
                         source: cytoscape_main_node,
                         target: current_node_name,
                         label:data[i]._fields[1].type,
+                        showChild:false,
                     },
-                    style:edgeStyle(data[i]._fields[1].type)
+                    style:edgeStyle(data[i]._fields[1].type),
+                    className:["edges"],
+                    classes:["edges"],
+
                 },
             );
             /*Cytoscape Portion (END)*/
