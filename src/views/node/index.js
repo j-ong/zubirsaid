@@ -30,7 +30,7 @@ import {CytoscapeObj} from './CytoscapeComponent';
 
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
-    const { nodes, cytoscape_nodes,cytoscape_edges, getNodes, nodeSummary, loading } = mainlistContext;
+    const { nodes, cytoscape_nodes,cytoscape_edges, cytoscape_data, getNodes, nodeSummary, loading } = mainlistContext;
     const [value, setValue] = React.useState("0");
 
     const handleChange = (event, newValue) => {
@@ -81,6 +81,7 @@ const Node = ({ match }) => {
                         nodes:cytoscape_nodes,
                         edges:cytoscape_edges
                     })}
+                    cytoscape_data = {cytoscape_data}
                 />
             </TabPanel>
             </TabContext>
