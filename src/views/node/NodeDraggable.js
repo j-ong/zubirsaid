@@ -21,18 +21,21 @@ export class DraggableDialog extends React.Component{
 
     constructor(props){
         super(props);
-        this.state.id=props.id && props.id || "";
-        this.state.itemID = props.itemID && props.itemID ||"";
-        this.state.node_id = props.node_id;
-        this.state.showChild = props.showChild;
-        console.log(`ID: ${props.id}, SHOWCHILD:${props.showChild}`)
+        this.state.id=this.props.id && props.id || "";
+        this.state.itemID = this.props.itemID && props.itemID ||"";
+        this.state.node_id = this.props.node_id;
+        this.state.showChild = this.props.showChild;
+        console.log(`ID: ${this.props.id}, SHOWCHILD:${this.props.showChild}`)
     }
+
     closeChild = () =>{
         console.log("close");
             this.state.showChild = false;
     }
 
-
+    componentWillReceiveProps(nextProps) {
+        this.setState({ showChild: nextProps.showChild });
+    }
 
     handleDrag = (e, ui) => {
         console.log(this.state.deltaPosition);
