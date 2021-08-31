@@ -39,12 +39,6 @@ const MainlistState = (props) => {
         const res = await axios.get(`https://chriskhoo.net/ZS/0/${nodeid}`);
 
         var data = res.data;
-
-        /*For Testing Purposes*/
-        console.log("data");
-        console.log(data);
-
-
         var loopData = [];
         var groups = [];
 
@@ -149,8 +143,6 @@ const MainlistState = (props) => {
 
 
         var nodeSummary = data[0]._fields[0].properties;
-        console.log("PopUpData");
-        console.log(popup_data);
         dispatch({
             type: GET_NODES,
             payload: nodeArray,

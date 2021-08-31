@@ -60,7 +60,6 @@ export class DraggableDialog extends React.Component{
 
 
     closeChild = () =>{
-        console.log("close");
             this.state.showChild = false;
     }
 
@@ -69,7 +68,7 @@ export class DraggableDialog extends React.Component{
     }
 
     handleDrag = (e, ui) => {
-        console.log(this.state.deltaPosition);
+        // console.log(this.state.deltaPosition);
         const {x, y} = this.state.deltaPosition;
         this.setState({
             deltaPosition: {
@@ -162,8 +161,8 @@ export class DraggableDialog extends React.Component{
         // console.log(`rendered ${this.state.id} showChild ${this.state.showChild}`);
         if(!this.state.oneShotLogged){
             //console.log(this.state.data);
-            console.log(Object.keys(this.state.data.properties));
-            console.log(this.state.data.properties);
+            // console.log(Object.keys(this.state.data.properties));
+            // console.log(this.state.data.properties);
             this.state.oneShotLogged = true;
         }
 

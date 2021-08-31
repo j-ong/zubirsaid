@@ -61,18 +61,10 @@ export class CytoscapeObj extends React.Component {
 
 
         renderDraggable(e){
-            console.log("-----------Render Draggable-----------");
-            console.log(e);
             let elements_array = e.cy.elements();
-            // console.log("Elements Array");
-            // console.log(elements_array);
-
             let node_array = elements_array.filter(element=>
                 element.cytoClass.includes("node")
             );
-            console.log(node_array);
-            // let node_array =
-
             function renderDraggableItem(input_array){
                 let return_arr = [];
 
