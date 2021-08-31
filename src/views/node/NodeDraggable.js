@@ -7,6 +7,8 @@ export class DraggableDialog extends React.Component{
 
     state = {
         node_id:"",
+        id:"",
+        itemID:"",
         activeDrags: 0,
         deltaPosition: {
             x: 0, y: 0
@@ -19,6 +21,8 @@ export class DraggableDialog extends React.Component{
 
     constructor(props){
         super(props);
+        this.state.id=props.id && props.id || "";
+        this.state.itemID = props.itemID && props.itemID ||"";
         this.state.node_id = props.node_id;
         this.state.showChild = props.showChild;
     }
@@ -96,7 +100,7 @@ export class DraggableDialog extends React.Component{
         return (
         <React.Fragment>
             { this.state.showChild &&
-                <Draggable {...dragHandlers} onClose={this.closeChild} >
+                <Draggable id={this.state.id} itemID={this.state.itemID} {...dragHandlers} onClose={this.closeChild} >
                     <div className="box no-cursor"  >
                         <strong className="cursor">
                             <Button className={"button"}>Drag</Button>

@@ -9,7 +9,6 @@ import{ DraggableDialog} from './NodeDraggable'
 
 
 
-
 export class CytoscapeObj extends React.Component {
 
         state = {
@@ -42,24 +41,23 @@ export class CytoscapeObj extends React.Component {
             });
         };
 
-
-
-        initListeners(home_object) {
+        initListeners(home_object, callback_func) {
             let test_debug=true;
             console.log(this.state.modal_array);
-            this.state.modal_array=[this.cy.nodes()[0].id().replace("node_","popup_")];
-            this.state.modal_obj={0:{}};
+            home_object.state.modal_array=[this.cy.nodes()[0].id().replace("node_","popup_")];
+            home_object.state.modal_obj={0:{}};
 
             this.cy.nodes().forEach( node =>{
 
                 let popupId = node.id().replace("node_","popup_");
-
                 popupId !== this.state.modal_array[0] && this.state.modal_array.push(popupId);
-
                 this.state.modal_obj[popupId]= {itemID:popupId};
                 this.state.modal_obj[popupId].showChild = false;
                 node.showChild=true;
+
             });
+            console.log(this.cy.nodes()[0]);
+
             delete this.state.modal_obj[0];
             // test_debug && console.log("modalArray");
             // test_debug && console.log(this.state.modal_array);
@@ -68,7 +66,6 @@ export class CytoscapeObj extends React.Component {
 
             this.cy.nodes().on('click',
                 function(e){
-                    // console.log(e);
                     let current_node_id = e.target.id();
                     test_debug && console.log("Elements");
                     test_debug && console.log(e.cy.nodes());
@@ -82,9 +79,50 @@ export class CytoscapeObj extends React.Component {
                     current_node.data().showChild=true;
                     // home_object.state.modal_obj[popupId].showChild=true;
                     //test_debug &&  console.log(home_object.state.modal_obj[popupId]);
-
+                    console.log("Event");
+                    console.log(e);
+                    console.log("Event.cy.nodes");
+                    console.log(e.cy.nodes());
+                    console.log("Position");
+                    console.log(e.target.position());
+                    callback_func(e);
                 }
             );
+        }
+
+
+        renderDraggable(e){
+
+            let input_array = ["a","b"];
+
+            input_array.forEach(node=>{console.log(node)});
+
+            function renderDraggableItem(input_array){
+                let return_arr = [];
+                input_array.forEach(node=>(
+                    return_arr.push( <DraggableDialog
+                        itemID={node}
+                        showChild={true}
+                    />
+                    )
+                ));
+                return(
+                    return_arr
+                )
+            }
+
+            function renderDraggableItems(input_array){
+                ReactDOM.render(
+                    <React.Fragment>
+                        {
+                            renderDraggableItem(input_array)
+                        }
+                    </React.Fragment>,
+                    document.getElementById("PopupDiv")
+                )
+            }
+
+            renderDraggableItems(input_array);
         }
 
         layout =
@@ -128,25 +166,14 @@ export class CytoscapeObj extends React.Component {
                     allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
             }
 
-        //
-        // renderDraggable(){
-        //
-        //     return(
-        //         <DraggableDialog
-        //             itemID={"a"}
-        //             showChild={true}
-        //         />
-        //     )
-        // }
-
 
 
         render(){
-            this.state.cyto = cytoscape.use(cola);
+            cytoscape.use(cola);
             return(
             <React.Fragment>
                 <Grid container>
-                    <Grid itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
+                    <Grid id={"CytoscapeBox"}  itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
                         <h2>Cytoscape:</h2>
                         {
                             this.state.cy =(
@@ -160,7 +187,7 @@ export class CytoscapeObj extends React.Component {
                                     cy = {(cy)=>{
                                         this.cy=cy;
                                         if(!this.state.listenersInit){
-                                            this.initListeners(this);
+                                            this.initListeners(this,this.renderDraggable);
                                         }
                                         this.modal_array = this.state.modal_array;
                                         this.modal_obj = this.state.modal_obj;
@@ -173,14 +200,18 @@ export class CytoscapeObj extends React.Component {
 
                     <Grid itemID={"PopupBox"} bgcolor={"aliceblue"} sx={{ width: 1/2 }}>
                          <h2>Description:</h2>
-                        <div itemID={"PopupDiv"}>
-                            <span>Test</span>
-                            {
-                                console.log("State.cy")
-                            }
-                            {
-                                console.log(this.state.cy.props.elements)
-                            }
+                        <div id={"PopupDiv"} itemID={"PopupDiv"}>
+                            {/*{*/}
+                            {/*    console.log("State.cy")*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    console.log(this.state.cy.props.elements)*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    this.state.cy.props.elements.forEach(element=>{*/}
+
+                            {/*    })*/}
+                            {/*}*/}
                             {/*{*/}
                             {/*    !this.state.modal_arrayInit &&*/}
                             {/*    this.state.cy.props.elements.forEach(element=>{*/}
@@ -226,21 +257,21 @@ export class CytoscapeObj extends React.Component {
                             {/*        )*/}
                             {/*    )*/}
                             {/*}*/}
-                            {
-                                (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(
-                                    <DraggableDialog
-                                        itemID={this.state.modal_obj[item].itemID}
-                                        showChild={this.state.modal_obj[item].showChild}
-                                    />
-                                    )
-                                )
-                            }
-                            {
-                                (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(
-                                        console.log(this.state.modal_obj[item])
-                                    )
-                                )
-                            }
+                            {/*{*/}
+                            {/*    (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(*/}
+                            {/*        <DraggableDialog*/}
+                            {/*            itemID={this.state.modal_obj[item].itemID}*/}
+                            {/*            showChild={this.state.modal_obj[item].showChild}*/}
+                            {/*        />*/}
+                            {/*        )*/}
+                            {/*    )*/}
+                            {/*}*/}
+                            {/*{*/}
+                            {/*    (this.state.modal_array.length>0) && this.state.modal_array.map(item=>(*/}
+                            {/*            console.log(this.state.modal_obj[item])*/}
+                            {/*        )*/}
+                            {/*    )*/}
+                            {/*}*/}
                         </div>
                     </Grid>
                 </Grid>
