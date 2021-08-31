@@ -1,47 +1,35 @@
-import { retrieveInfo } from "../../connectionObject/connectionObject";
-import Cytoscape from "cytoscape";
+// import { retrieveInfo } from "../../connectionObject/connectionObject";
+import cytoscape from "cytoscape";
+import ReactDOM from 'react-dom';
 import React from "react";
-import ReactDOM from "react-dom";
 import CytoscapeComponent from 'react-cytoscapejs';
-// import {ReactCytoscape} from 'react-cytoscape';
 import cola from 'cytoscape-cola';
-import popper from 'cytoscape-popper';
+import Grid from '@material-ui/core/Grid';
+import{ DraggableDialog} from './NodeDraggable'
 
 
-const makePopper = (ele) =>{
-    // create a basic popper on the first node
-    let popper1 = ele.popper({
-        content: () => {
-            let div = document.createElement("div");
-            div.innerHTML = "Popper content";
-            document.body.appendChild(div);
-            return div;
-        },
-        popper: {} // my popper options here
-    });
-}
-
-const touchInteraction = (evt,interaction_nature) =>{
-    // console.log(interaction_nature+ e.target.id());
-    console.log(evt.target);
-    console.log(`Target.id() =  ${evt.target.id()}`);
-    //makePopper(evt.target.id());
-
-};
 
 export class CytoscapeObj extends React.Component {
 
         state = {
-            width:200,
-            height:200,
+            width:300,
+            height:300,
             elements:[],
-        }
+            listenersInit:false,
+            cytoscape_data:null,
+            cy:null,
+            test:"",
+        };
+
+        width=400;
 
         constructor(props) {
             super(props);
             this.state.width = props.width;
             this.state.height = props.height;
             this.state.elements = props.elements;
+            this.state.cytoscape_data = props.cytoscape_data;
+            this.state.listenersInit = false;
         }
 
         componentDidMount =(width,height) => {
@@ -51,66 +39,69 @@ export class CytoscapeObj extends React.Component {
             });
         };
 
-
-
-
-        initListeners() {
-            this.cy.nodes().on('tap',
-                function(evt){
-                    touchInteraction(evt, 'tap');
-                }
-            );
+        initListeners(home_object, callback_func) {
+            this.cy.nodes().forEach( node =>{
+                node.showChild=false;
+                node.cytoClass=["node"];
+            });
+            this.cy.edges().forEach( edge =>{
+                edge.showChild=false;
+                edge.cytoClass=["edge"];
+            });
 
             this.cy.nodes().on('click',
-                function(evt){
-                    touchInteraction(evt, 'click');
+                function(e){
+                    let current_node_id = e.target.id();
+                    let current_node = e.cy.nodes().getElementById(current_node_id);
+                    current_node.showChild=true;
+                    callback_func(e);
                 }
             );
-
-
-            // this.cy.animate(
-            //     {
-            //         pan: { x: 100, y: 100 },
-            //         zoom: 2
-            //     },
-            //     {
-            //         duration: 1000
-            //     }
-            // );
-
-            // let popper1 = this.cy.nodes()[0].popper({
-            //     content: () => {
-            //         let div = document.createElement('div');
-            //
-            //         div.innerHTML = 'Popper content';
-            //
-            //         document.body.appendChild(div);
-            //
-            //         return div;
-            //     },
-            //     popper: {} // my popper options here
-            // });
-
-
         }
 
-        // componentWillUnmount() {
-        //     console.log('remove listeners')
-        //     if (this.cy) {
-        //         this.cy.removeAllListeners()
-        //     }
-        // }
-        //
-        setUpListeners = () => {
-            this.cy.on('click','node',(event) => {
-                console.log(event.target);
-                alert("HelloWorld!");
-            });
-        };
+
+        renderDraggable(e){
+            let elements_array = e.cy.elements();
+            let node_array = elements_array.filter(element=>
+                element.cytoClass.includes("node")
+            );
+            function renderDraggableItem(input_array){
+                let return_arr = [];
+
+                input_array.forEach(node=>(
+                    return_arr.push(
+                        <DraggableDialog
+                        itemID={node.data().id.replace("node_","popup_")}
+                        showChild={node.showChild}
+                        data={e.cy.cytoscape_data[node.data().id.replace("node_","")]}
+                        // nodeClickPosition={{x:e.renderedPosition.x,y:e.renderedPosition.y}}
+                        />
+                    )
+                ));
+                return(
+                    return_arr
+                )
+            }
+
+            function renderDraggableItems(input_array){
+                ReactDOM.render(
+                    <React.Fragment>
+                        {
+                            renderDraggableItem(input_array)
+                        }
+                    </React.Fragment>,
+                    document.getElementById("PopupDiv")
+                )
+            }
+
+            renderDraggableItems(node_array);
+        }
 
         layout =
             {
                     name:"cola",
+                    height:this.state.height,
+                    width: this.state.width,
                     animate: true, // whether to show the layout as it's running
                     refresh: 1, // number of ticks per frame; higher is faster but more jerky
                     animationDuration:99999,
@@ -148,39 +139,46 @@ export class CytoscapeObj extends React.Component {
             }
 
 
+
         render(){
+            cytoscape.use(cola);
+            return(
+            <React.Fragment>
+                <Grid container>
+                    <Grid id={"CytoscapeBox"}  itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
+                        <h2>Cytoscape:</h2>
+                        {
+                            this.state.cy =(
+                                <CytoscapeComponent
+                                    style={{
+                                        height:this.state.height,
+                                        width:this.state.width,
+                                    }}
+                                    elements={this.state.elements}
+                                    layout={this.layout}
+                                    cy = {(cy)=>{
+                                        this.cy=cy;
+                                        if(!this.state.listenersInit){
+                                            this.initListeners(this,this.renderDraggable);
+                                        }
+                                        this.state.listenersInit = true;
+                                        this.cy.cytoscape_data = this.state.cytoscape_data;
+                                    }}
 
-            Cytoscape.use(cola);
-            console.log(Cytoscape.prototype);
-            try{
-                Cytoscape.use(popper);
-            }
-            catch(err){
-                console.log(err);
-            }
-                return(
-                <React.Fragment>
-                    <CytoscapeComponent
-                        style={{
-                            height:this.state.height,
-                            width:this.state.width}}
-                        elements={this.state.elements}
-                        layout={this.layout}
-                        cy = {(cy)=>{
-                            this.cy = cy;
-                            console.log(this.cy.prototype);
-                            this.initListeners();
-                            this.cy.nodes().forEach( element =>{
-                                console.log(element);
-                                    // makePopper(element);
-                                }
+                                />
                             )
-
-                        }}
-
-                    />
-
-                </React.Fragment>
-            )
+                        }
+                    </Grid>
+                    <Grid itemID={"PopupBox"} bgcolor={"aliceblue"} sx={{ width: 1/2 }}>
+                        <h2>Description:</h2>
+                        <div id={"PopupDiv"} itemID={"PopupDiv"}>
+                        </div>
+                    </Grid>
+                </Grid>
+            </React.Fragment>
+        )
         }
 }
+
+
+
