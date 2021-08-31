@@ -43,17 +43,20 @@ export class CytoscapeObj extends React.Component {
 
         initListeners(home_object, callback_func) {
             let test_debug=true;
-            console.log(this.state.modal_array);
+            // console.log(this.state.modal_array);
             home_object.state.modal_array=[this.cy.nodes()[0].id().replace("node_","popup_")];
             home_object.state.modal_obj={0:{}};
 
             this.cy.nodes().forEach( node =>{
-
                 let popupId = node.id().replace("node_","popup_");
                 popupId !== this.state.modal_array[0] && this.state.modal_array.push(popupId);
                 this.state.modal_obj[popupId]= {itemID:popupId};
-                this.state.modal_obj[popupId].showChild = false;
-                node.showChild=true;
+                node.showChild=false;
+                node.cytoClass=["node"];
+            });
+            this.cy.edges().forEach( edge =>{
+                edge.showChild=false;
+                edge.cytoClass=["edge"];
 
             });
             console.log(this.cy.nodes()[0]);
@@ -92,18 +95,29 @@ export class CytoscapeObj extends React.Component {
 
 
         renderDraggable(e){
+            console.log("-----------Render Draggable-----------");
+            console.log(e);
+            let elements_array = e.cy.elements();
+            console.log("Elements Array");
+            console.log(elements_array);
 
-            let input_array = ["a","b"];
-
-            input_array.forEach(node=>{console.log(node)});
+            let node_array = elements_array.filter(element=>
+                element.cytoClass.includes("node")
+            );
+            console.log(node_array);
+            // let node_array =
 
             function renderDraggableItem(input_array){
                 let return_arr = [];
+
+
                 input_array.forEach(node=>(
-                    return_arr.push( <DraggableDialog
-                        itemID={node}
-                        showChild={true}
-                    />
+                    return_arr.push(
+                        <DraggableDialog
+                        id={node.data().id.replace("node_","popup_")}
+                        itemID={node.data().id.replace("node_","popup_")}
+                        showChild={node.showChild}
+                        />
                     )
                 ));
                 return(
@@ -122,7 +136,7 @@ export class CytoscapeObj extends React.Component {
                 )
             }
 
-            renderDraggableItems(input_array);
+            renderDraggableItems(node_array);
         }
 
         layout =

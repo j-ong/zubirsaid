@@ -16,7 +16,7 @@ export class DraggableDialog extends React.Component{
         controlledPosition: {
             x: -400, y: 200
         },
-        showChild:true,
+        showChild:false,
     };
 
     constructor(props){
@@ -25,6 +25,7 @@ export class DraggableDialog extends React.Component{
         this.state.itemID = props.itemID && props.itemID ||"";
         this.state.node_id = props.node_id;
         this.state.showChild = props.showChild;
+        console.log(`ID: ${props.id}, SHOWCHILD:${props.showChild}`)
     }
     closeChild = () =>{
         console.log("close");
@@ -97,6 +98,7 @@ export class DraggableDialog extends React.Component{
     render() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
         const {deltaPosition, controlledPosition} = this.state;
+        console.log(`rendered ${this.state.id} showChild ${this.state.showChild}`);
         return (
         <React.Fragment>
             { this.state.showChild &&
