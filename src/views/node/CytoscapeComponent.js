@@ -12,16 +12,14 @@ import{ DraggableDialog} from './NodeDraggable'
 export class CytoscapeObj extends React.Component {
 
         state = {
-            width:300,
-            height:300,
+            width:0,
+            height:0,
             elements:[],
             listenersInit:false,
             cytoscape_data:null,
             cy:null,
             test:"",
         };
-
-        width=400;
 
         constructor(props) {
             super(props);
@@ -43,6 +41,13 @@ export class CytoscapeObj extends React.Component {
         };
 
         initListeners(home_object, callback_func) {
+
+            this.cy.on('cxttapstart',
+                function(e){
+                e.cy.reset();
+                }
+            )
+
             this.cy.nodes().forEach( node =>{
                 node.showChild=false;
                 node.cytoClass=["node"];
@@ -68,19 +73,20 @@ export class CytoscapeObj extends React.Component {
             let node_array = elements_array.filter(element=>
                 element.cytoClass.includes("node")
             );
-
-
-
             function renderDraggableItem(input_array,callback_function){
                 let return_arr = [];
 
-                input_array.forEach(node=>(
+                input_array.forEach(node=>{
+                    (
+
                     return_arr.push(
                         <DraggableDialog
                         itemID={node.data().id.replace("node_","popup_")}
                         key={node.data().id.replace("node_","key_")}
                         showChild={node.showChild}
                         data={e.cy.cytoscape_data[node.data().id.replace("node_","")]}
+                        x={node.position().x-e.cy.width()}
+                        y={node.position().y-e.cy.height()}
                         updateShowChild={
                             function(evt,current_node_id){
                                 let temp_index =e.cy.elements().findIndex(node=>{return node.data().id===current_node_id});
@@ -92,7 +98,8 @@ export class CytoscapeObj extends React.Component {
                         // nodeClickPosition={{x:e.renderedPosition.x,y:e.renderedPosition.y}}
                         />
                     )
-                ));
+                )}
+                );
                 return(
                     return_arr
                 )
@@ -115,8 +122,8 @@ export class CytoscapeObj extends React.Component {
         layout =
             {
                     name:"cola",
-                    height:this.state.height,
-                    width: this.state.width,
+                    // height:this.state.height,
+                    // width: this.state.width,
                     animate: true, // whether to show the layout as it's running
                     refresh: 1, // number of ticks per frame; higher is faster but more jerky
                     animationDuration:99999,
@@ -126,8 +133,8 @@ export class CytoscapeObj extends React.Component {
                     padding: 30, // padding around the simulation
                     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
                     nodeDimensionsIncludeLabels: true, // whether labels should be included in determining the space used by a node
-
-                    // layout event callbacks
+                    wheelSensitivity:0.01,
+                // layout event callbacks
                     ready: function(){}, // on layoutready
                     stop: function(){}, // on layoutstop
 
@@ -161,7 +168,7 @@ export class CytoscapeObj extends React.Component {
             <React.Fragment>
                 <Grid container>
                     <Grid id={"CytoscapeBox"}  itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
-                        <h2>Cytoscape:</h2>
+                        <h2>Knowledge Graph</h2>
                         {
                             this.state.cy =(
                                 <CytoscapeComponent
@@ -184,10 +191,10 @@ export class CytoscapeObj extends React.Component {
                             )
                         }
                     </Grid>
-                    <Grid itemID={"PopupBox"} bgcolor={"aliceblue"} sx={{ width: 1/2 }}>
-                        <h2>Description:</h2>
-                        <div id={"PopupDiv"} itemID={"PopupDiv"}>
-                        </div>
+                    <Grid id={"PopupBox"} itemID={"PopupBox"} sx={{ width: 1/2 }} bgcolor={'aliceblue'}>
+                        <h2>Description</h2>
+                        <Grid id={"PopupDiv"} itemID={"PopupDiv"}>
+                        </Grid>
                     </Grid>
                 </Grid>
             </React.Fragment>
