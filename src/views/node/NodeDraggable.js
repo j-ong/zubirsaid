@@ -223,7 +223,7 @@ export class DraggableDialog extends React.Component{
                             }
                         </CardContent>
                         <CardActions >
-                            <Button size="small" disableElevation onClick={this.linkClicked(this.state.id)}>
+                            <Button size="small" disableElevation onClick={()=>{this.linkClicked(this.state.id)}}>
                                 View more
                                 <ChevronRightOutlinedIcon />
                             </Button>
