@@ -1,6 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 import {Router} from 'react-router';
+
 import MainCard from '../../ui-component/cards/MainCard';
 import {
     Button,
@@ -14,7 +15,7 @@ import {
     Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
 
 
@@ -47,7 +48,7 @@ export class DraggableDialog extends React.Component{
     constructor(props){
         super(props);
         this.state.itemID = this.props.itemID && props.itemID ||"";
-        this.state.id=this.state.itemID;
+        this.state.id=this.state.itemID.replace("popup_","");
         this.state.node_id = this.props.node_id;
         this.state.showChild = this.props.showChild;
         //this.state.nodeClickPosition =this.props.nodeClickPosition;
@@ -151,7 +152,9 @@ export class DraggableDialog extends React.Component{
         )
     }
 
-
+    linkClicked(node_id=null){
+        window.location.replace(node_id);
+    }
 
 
 
@@ -220,14 +223,11 @@ export class DraggableDialog extends React.Component{
                             }
                         </CardContent>
                         <CardActions >
-                                {/*<Link to={`/node/${this.state.id}`} style={{ textDecoration: 'none' }}>*/}
-                                {/*    <Button size="small" disableElevation>*/}
-                                {/*        View more*/}
-                                {/*        <ChevronRightOutlinedIcon />*/}
-                                {/*    </Button>*/}
-                                {/*</Link>*/}
-                        </CardActions>
-
+                            <Button size="small" disableElevation onClick={this.linkClicked(this.state.id)}>
+                                View more
+                                <ChevronRightOutlinedIcon />
+                            </Button>
+                         </CardActions>
                     </Card>
                 </Draggable>
 
