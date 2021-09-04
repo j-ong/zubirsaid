@@ -73,9 +73,10 @@ const Node = ({ match }) => {
             </Grid>
             </TabPanel>
             <TabPanel value="1">
+                <Grid id={"CytoscapePanelGrid"} itemID={"CytoscapePanelGrid"}>
                 <CytoscapeObj
-                    height={600}
-                    width={600}
+                    height={1000}
+                    width={1000}
                     elements={
                         CytoscapeComponent.normalizeElements({
                         nodes:cytoscape_nodes,
@@ -83,6 +84,7 @@ const Node = ({ match }) => {
                     })}
                     cytoscape_data = {cytoscape_data}
                 />
+                </Grid>
             </TabPanel>
             </TabContext>
         </MainCard>

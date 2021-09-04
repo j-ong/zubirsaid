@@ -36,13 +36,12 @@ export class DraggableDialog extends React.Component{
         controlledPosition: {
             x: -400, y: 200
         },
-        nodeClickPosition:{
-            x:0,y:0
-        },
         showChild:false,
         data:null,
         dataLoaded:false,
         oneShotLogged:false,
+        initialized:false,
+        defaultPosition:{x:0,y:0},
     };
 
     constructor(props){
@@ -81,13 +80,12 @@ export class DraggableDialog extends React.Component{
         this.setState({activeDrags: ++this.state.activeDrags});
     };
 
-    onStop = () => {
+    onStop = (e) => {
         this.setState({activeDrags: --this.state.activeDrags});
     };
     onDrop = (e) => {
         this.setState({activeDrags: --this.state.activeDrags});
         if (e.target.classList.contains("drop-target")) {
-            alert("Dropped!");
             e.target.classList.remove('hovered');
         }
     };
@@ -155,15 +153,11 @@ export class DraggableDialog extends React.Component{
     }
 
 
-
     render() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
         const {deltaPosition, controlledPosition} = this.state;
-        // console.log(`rendered ${this.state.id} showChild ${this.state.showChild}`);
         if(!this.state.oneShotLogged){
-            //console.log(this.state.data);
-            // console.log(Object.keys(this.state.data.properties));
-            // console.log(this.state.data.properties);
+            this.state.defaultPosition={x:this.props.x, y: this.props.y};
             this.state.oneShotLogged = true;
         }
 
@@ -180,8 +174,7 @@ export class DraggableDialog extends React.Component{
                     itemID={this.state.itemID}
                     key = {this.state.itemID}
                     onClose={this.closeChild}
-                    // defaultPosition={this.state.nodeClickPosition}
-                    // position={{x: 0, y: 0}}
+                    //defaultPosition = {{x:this.state.defaultPosition.x,y:this.state.defaultPosition.y}}
                     {...dragHandlers} >
                     <Card className="box no-cursor -border-all"  >
                         <strong className="cursor">
