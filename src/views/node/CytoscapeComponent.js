@@ -30,7 +30,10 @@ export class CytoscapeObj extends React.Component {
             this.state.elements = props.elements;
             this.state.cytoscape_data = props.cytoscape_data;
             this.state.listenersInit = false;
+            this.renderDraggable=this.renderDraggable.bind(this);
         }
+
+
 
         componentDidMount =(width,height) => {
             this.setState({
@@ -65,15 +68,27 @@ export class CytoscapeObj extends React.Component {
             let node_array = elements_array.filter(element=>
                 element.cytoClass.includes("node")
             );
-            function renderDraggableItem(input_array){
+
+
+
+            function renderDraggableItem(input_array,callback_function){
                 let return_arr = [];
 
                 input_array.forEach(node=>(
                     return_arr.push(
                         <DraggableDialog
                         itemID={node.data().id.replace("node_","popup_")}
+                        key={node.data().id.replace("node_","key_")}
                         showChild={node.showChild}
                         data={e.cy.cytoscape_data[node.data().id.replace("node_","")]}
+                        updateShowChild={
+                            function(evt,current_node_id){
+                                let temp_index =e.cy.elements().findIndex(node=>{return node.data().id===current_node_id});
+                                e.cy.elements()[temp_index].showChild=false;
+                                e.cy.dataChanged = true;
+                                callback_function(e);
+                            }
+                        }
                         // nodeClickPosition={{x:e.renderedPosition.x,y:e.renderedPosition.y}}
                         />
                     )
@@ -83,18 +98,18 @@ export class CytoscapeObj extends React.Component {
                 )
             }
 
-            function renderDraggableItems(input_array){
+            function renderDraggableItems(input_array,callback_function){
                 ReactDOM.render(
                     <React.Fragment>
                         {
-                            renderDraggableItem(input_array)
+                            renderDraggableItem(input_array,callback_function)
                         }
                     </React.Fragment>,
                     document.getElementById("PopupDiv")
                 )
             }
 
-            renderDraggableItems(node_array);
+            renderDraggableItems(node_array,this.renderDraggable);
         }
 
         layout =

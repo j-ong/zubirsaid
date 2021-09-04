@@ -49,10 +49,8 @@ export class DraggableDialog extends React.Component{
         super(props);
         this.state.itemID = this.props.itemID && props.itemID ||"";
         this.state.id=this.state.itemID.replace("popup_","");
-        this.state.node_id = this.props.node_id;
+        this.state.node_id = this.props.itemID.replace("popup_","node_");
         this.state.showChild = this.props.showChild;
-        //this.state.nodeClickPosition =this.props.nodeClickPosition;
-        //console.log(this.state.nodeClickPosition);
         if(this.state.data==null){
             this.state.data=this.props.data;
             this.state.dataLoaded=true;
@@ -60,8 +58,9 @@ export class DraggableDialog extends React.Component{
     }
 
 
-    closeChild = () =>{
-            this.state.showChild = false;
+    closeChild = (e) =>{
+        this.state.showChild = false;
+        this.props.updateShowChild(e,this.state.node_id);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,7 +68,6 @@ export class DraggableDialog extends React.Component{
     }
 
     handleDrag = (e, ui) => {
-        // console.log(this.state.deltaPosition);
         const {x, y} = this.state.deltaPosition;
         this.setState({
             deltaPosition: {
@@ -180,6 +178,7 @@ export class DraggableDialog extends React.Component{
                 <Draggable
                     id={this.state.itemID}
                     itemID={this.state.itemID}
+                    key = {this.state.itemID}
                     onClose={this.closeChild}
                     // defaultPosition={this.state.nodeClickPosition}
                     // position={{x: 0, y: 0}}
@@ -192,7 +191,7 @@ export class DraggableDialog extends React.Component{
                         <CardContent>
                             <Grid><h2>{this.state.data.properties.label}</h2></Grid>
                             <Grid>
-                                <b>Labels:</b> {this.state.data.labels.map(label=>(<span>{label+", "}</span>))}
+                                <b>Labels:</b> {this.state.data.labels.map(label=>(<span key={"span_"+label+"_"+this.state.itemID}>{label+", "}</span>))}
                             </Grid>
                             {
                                 (this.state.data.properties.type && this.state.data.properties.type !=="") &&
