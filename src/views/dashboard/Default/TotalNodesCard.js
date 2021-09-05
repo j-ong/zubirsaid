@@ -3,23 +3,11 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Grid, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import SkeletonEarningCard from '../../../ui-component/cards/Skeleton/EarningCard';
-
-//avatar for node icon
-import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-
-//link
-import { Link } from 'react-router-dom';
-
-// assets
-// import EarningIcon from './../../../assets/images/icons/earning.svg';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-// import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -103,18 +91,8 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const TotalNodesCard = ({ isLoading, songsCount }) => {
+const TotalNodesCard = ({ isLoading, genreCount }) => {
     const classes = useStyles();
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     return (
         <React.Fragment>
@@ -124,77 +102,14 @@ const TotalNodesCard = ({ isLoading, songsCount }) => {
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
                     <Grid container direction="column">
                         <Grid item>
-                            <Grid container justifyContent="space-between">
-                                <Grid item>
-                                    <Avatar variant="rounded" className={classes.avatar}>
-                                        {/* <img src={EarningIcon} alt="Notification" /> */}
-                                        <LibraryMusicIcon fontSize="inherit" />
-                                    </Avatar>
-                                </Grid>
-                                <Grid item>
-                                    <Avatar
-                                        variant="rounded"
-                                        className={classes.avatarRight}
-                                        aria-controls="menu-earning-card"
-                                        aria-haspopup="true"
-                                        onClick={handleClick}
-                                    >
-                                        <MoreHorizIcon fontSize="inherit" />
-                                    </Avatar>
-                                    <Menu
-                                        id="menu-earning-card"
-                                        anchorEl={anchorEl}
-                                        keepMounted
-                                        open={Boolean(anchorEl)}
-                                        onClose={handleClose}
-                                        variant="selectedMenu"
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'right'
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right'
-                                        }}
-                                    >
-                                        <Link to={`/node/MusicalWork`} style={{ textDecoration: 'none', color: '#4a154b' }}>
-                                            <MenuItem onClick={handleClose}>
-                                                <MusicNoteIcon fontSize="inherit" className={classes.menuItem} /> View song list
-                                            </MenuItem>
-                                        </Link>
-                                    </Menu>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
                             <Grid container alignItems="center">
                                 <Grid item>
-                                    <Typography className={classes.cardHeading}>{songsCount}</Typography>
+                                    <Typography className={classes.cardHeading}>{genreCount}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Total Songs</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Grid container alignItems="center">
-                                <Grid item>
-                                    <Typography className={classes.cardHeading}>1928 - 1987</Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Composition Period</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Grid container alignItems="center">
-                                <Grid item>
-                                    <Typography className={classes.cardHeading}>Universal Music Group</Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Music Label</Typography>
+                            <Typography className={classes.subHeading}>Total Genres</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>
