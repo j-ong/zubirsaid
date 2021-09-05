@@ -10,8 +10,7 @@ import MainlistContext from '../../contexts/mainlist/mainlistContext';
 import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
-import { Grid, AppBar, Tabs, Tab, Box } from '@material-ui/core';
-import {} from '@material-ui/core/styles';
+import { Grid, Tab, Box } from '@material-ui/core';
 
 import {TabContext, TabPanel,TabList} from '@material-ui/lab';
 // import { Typography } from '@material-ui/core';
@@ -23,16 +22,15 @@ import SubCard from './../../ui-component/cards/SubCard';
 import { gridSpacing } from './../../store/constant';
 
 //Cytoscape components
-import retrieveInfo from '../../connectionObject/connectionObject';
-import cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
-import Cytoscape from './CytoscapeComponent';
+import {CytoscapeObj} from './CytoscapeComponent';
+
 
 //==============================|| SAMPLE PAGE ||==============================//
 
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
-    const { nodes, cytoscape_nodes,cytoscape_edges, getNodes, nodeSummary, loading } = mainlistContext;
+    const { nodes, cytoscape_nodes,cytoscape_edges, cytoscape_data, getNodes, nodeSummary, loading } = mainlistContext;
     const [value, setValue] = React.useState("0");
 
     const handleChange = (event, newValue) => {
@@ -44,9 +42,6 @@ const Node = ({ match }) => {
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-
-    console.log(match);
     return (
         <MainCard title={nodeSummary.label}>
             <TabContext value={value}>
@@ -64,11 +59,13 @@ const Node = ({ match }) => {
                     <Grid item xs={12} sm={12} key={node.group}>
                         <SubCard title={node.group}>
                             <Grid container spacing={gridSpacing}>
-                                {node.properties.map((property) => (
+                                {
+                                    node.properties.map((property) => (
                                     <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
                                         <NodePropertyItem loading={loading} property={property} key={property.id} />
                                     </Grid>
-                                ))}
+                                ))
+                                }
                             </Grid>
                         </SubCard>
                     </Grid>
@@ -76,15 +73,18 @@ const Node = ({ match }) => {
             </Grid>
             </TabPanel>
             <TabPanel value="1">
-                <h2>Cytoscape:</h2>
-                <Cytoscape
-                    height={600}
-                    width={600}
-                    elements={CytoscapeComponent.normalizeElements({
-                            nodes:cytoscape_nodes,
-                            edges:cytoscape_edges
+                <Grid id={"CytoscapePanelGrid"} itemID={"CytoscapePanelGrid"}>
+                <CytoscapeObj
+                    height={1000}
+                    width={1000}
+                    elements={
+                        CytoscapeComponent.normalizeElements({
+                        nodes:cytoscape_nodes,
+                        edges:cytoscape_edges
                     })}
+                    cytoscape_data = {cytoscape_data}
                 />
+                </Grid>
             </TabPanel>
             </TabContext>
         </MainCard>

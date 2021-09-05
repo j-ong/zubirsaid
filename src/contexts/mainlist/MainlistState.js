@@ -3,6 +3,7 @@ import axios from 'axios';
 import MainlistContext from './mainlistContext';
 import MainlistReducer from './mainlistReducer';
 import { GET_CARDS, GET_NODES, SET_LOADING } from '../types';
+import { nodeStyle, nodeMainStyle, edgeStyle, } from '../../views/node/CytoscapeStyle';
 
 const MainlistState = (props) => {
     const initialState = {
@@ -38,24 +39,35 @@ const MainlistState = (props) => {
         const res = await axios.get(`https://chriskhoo.net/ZS/0/${nodeid}`);
 
         var data = res.data;
-
-        /*For Testing Purposes*/
-        console.log(res.data);
-
         var loopData = [];
         var groups = [];
-
 
         /*Cytoscape Portion (START)*/
         let cytoscape_main_node = 'node_' + data[0]._fields[0].properties.id
         let current_node_name = '';
         let cytoscape_nodes = [
             {
-                data:     { id: cytoscape_main_node, label: data[0]._fields[0].properties.label},
-                position: { x: 50, y: 100 }
+                data:     {
+                    id: cytoscape_main_node,
+                    label: data[0]._fields[0].properties.label,
+                },
+                // position: { x: 50, y: 100 }
+                style:nodeMainStyle(data[0]._fields[0].properties.label),
+                className:["nodes"],
+                classes:["nodes"],
+
             },
         ];
         let cytoscape_edges = [];
+
+        let popup_data={"a":{}};
+        popup_data[data[0]._fields[0].properties.id] = {
+            labels: data[0]._fields[0].labels,
+            properties: data[0]._fields[0].properties,
+        }
+        delete popup_data["a"];
+
+
         /*Cytoscape Portion (END)*/
 
         for (var i = 0; i < data.length; i++) {
@@ -77,19 +89,37 @@ const MainlistState = (props) => {
             current_node_name = "node_" + data[i]._fields[2].properties.id
             cytoscape_nodes.push(
                 {
-                    data:     { id: current_node_name,
-                                label: data[i]._fields[2].properties.label},
-                    position: { x: 50, y: 100 }
-                },
+                    data:     {
+                        id: current_node_name,
+                        label: data[i]._fields[2].properties.label,
+                    },
+                    style:nodeStyle(data[i]._fields[2].properties.label),
+                    className:["nodes"],
+                    classes: ["nodes"],
+
+                    // position: { x: 50, y: 100 }
+                }
             );
+
+            // popup_data[data[i]]=data[i]._fields[2];
+            popup_data[data[i]._fields[2].properties.id] = {
+                labels:data[i]._fields[2].labels,
+                properties:data[i]._fields[2].properties
+            };
+
             cytoscape_edges.push(
                 {
                     data: {
+                        id: "edge_" + cytoscape_main_node + "_" + current_node_name,
                         source: cytoscape_main_node,
                         target: current_node_name,
-                        label: data[i]._fields[1].type
-                    }
-                }
+                        label:data[i]._fields[1].type,
+                    },
+                    style:edgeStyle(data[i]._fields[1].type),
+                    className:["edges"],
+                    classes:["edges"],
+
+                },
             );
             /*Cytoscape Portion (END)*/
         }
@@ -113,12 +143,12 @@ const MainlistState = (props) => {
 
 
         var nodeSummary = data[0]._fields[0].properties;
-
         dispatch({
             type: GET_NODES,
             payload: nodeArray,
             payload_cytoscape_nodes:cytoscape_nodes,
             payload_cytoscape_edges:cytoscape_edges,
+            payload_cytoscape_data:popup_data,
             summary: nodeSummary
         });
     };
@@ -133,6 +163,7 @@ const MainlistState = (props) => {
                 nodes: state.nodes,
                 cytoscape_nodes: state.cytoscape_nodes,
                 cytoscape_edges: state.cytoscape_edges,
+                cytoscape_data: state.cytoscape_data,
                 nodeSummary: state.nodeSummary,
                 loading: state.loading,
                 getCards,
