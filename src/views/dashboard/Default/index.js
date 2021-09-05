@@ -61,10 +61,23 @@ const Dashboard = () => {
                     var newSong = []
                     newSong.push(data2[i]._fields[2].properties.accessURL);
                     newSong.push(data2[i]._fields[2].properties.label)
-                    playlist.push(newSong);
+                    var isUniqueSong = true
+                    for(var u=0; u<playlist.length; u++) {
+                        var currentSong = playlist[u]
+                        if(newSong[0] == currentSong[0]) {
+                            isUniqueSong = false
+                        }
+                        if(!isUniqueSong) {
+                            break
+                        }
+                    }
+                    if(isUniqueSong) {
+                        playlist.push(newSong);
+                    }
                 }  
             }
         } 
+       
         setSongList(playlist) 
     };
 
