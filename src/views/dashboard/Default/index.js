@@ -21,6 +21,7 @@ import axios from 'axios';
 const Dashboard = () => {
     const [counter, setCounter] = useState(0);
     const [songList, setSongList] = useState([]);
+    const [songCounter, setSongCounter] = useState(0)
 
     const getGenreCount = async () => {
         const res = await axios.get('https://chriskhoo.net/ZS/0/CreativeWork');
@@ -78,6 +79,7 @@ const Dashboard = () => {
             }
         } 
        
+        setSongCounter(playlist.length)
         setSongList(playlist) 
     };
 
@@ -98,7 +100,7 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing} direction="row">
                     <Grid item xs={12} md={6}>
-                        <TotalNodesCard isLoading={isLoading} genreCount={counter} style={section} />
+                        <TotalNodesCard isLoading={isLoading} genreCount={counter} songCount={songCounter} style={section} />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
