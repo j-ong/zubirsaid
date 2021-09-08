@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // assets
-import Zubirold from './../../../assets/images/zs/zubirscore.jpeg';
+import Zubirold from './../../../assets/images/zs/zubirscore.jpg';
 import Zubirpres from './../../../assets/images/zs/zubirpres.jpeg';
 import Zubirscore from './../../../assets/images/zs/zubircompose.jpeg';
 
