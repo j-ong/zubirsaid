@@ -4,6 +4,7 @@ import React, {useState } from 'react';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, MenuItem } from '@material-ui/core';
+import { Table,TableBody ,TableCell, TableContainer,TableHead,TableRow ,Paper} from '@mui/material';
 // import { Avatar, Button } from '@material-ui/core';
 
 // third-party
@@ -150,16 +151,25 @@ const TotalOrderLineChartCard = ({ isLoading, songList}) => {
                                 <Grid item xs={12}>
                                     <div className="container">
                                         <h3 style={{textAlign: 'center' }}>Video Playlist</h3>
-                                            <table className="table table-striped table-bordered">                                            
-                                                <tbody>
+                                            {/*<table className="table table-striped table-bordered">*/}
+                                            {/*    <tbody>*/}
+                                            {/*        { songList.map(song =>*/}
+                                            {/*             <tr style={{cursor: 'pointer' }}>*/}
+                                            {/*                <th style={{textAlign:'center'}} onClick={() => load(song[0])}>{song[1]}</th>*/}
+                                            {/*            </tr>*/}
+                                            {/*            */}
+                                            {/*        )}*/}
+                                            {/*    </tbody>*/}
+                                            {/*</table>*/}
+                                            <TableContainer component = {Paper}>
+                                                <Table>
                                                     { songList.map(song =>
-                                                         <tr style={{cursor: 'pointer' }}>
-                                                            <th onClick={() => load(song[0])}>{song[1]}</th>
-                                                        </tr>
-                                                        
+                                                        <TableRow style={{cursor: 'pointer' }}>
+                                                            <TableCell align={"center"} onClick={() => load(song[0])}>{song[1]}</TableCell>
+                                                        </TableRow>
                                                     )}
-                                                </tbody>
-                                            </table>
+                                                </Table>
+                                            </TableContainer>
                                      </div>
                                 </Grid>
                             </Grid>
