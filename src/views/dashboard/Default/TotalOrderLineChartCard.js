@@ -163,8 +163,10 @@ const TotalOrderLineChartCard = ({ isLoading, songList}) => {
                                             {/*</table>*/}
                                             <TableContainer component = {Paper}>
                                                 <Table>
-                                                    { songList.map(song =>
-                                                        <TableRow style={{cursor: 'pointer' }}>
+                                                    { songList.map((song,index) =>
+                                                        <TableRow style={
+                                                            index % 2 ? {cursor: 'pointer', background:"white"} : {cursor: 'pointer', background:"whitesmoke"}
+                                                        }>
                                                             <TableCell align={"center"} onClick={() => load(song[0])}>{song[1]}</TableCell>
                                                         </TableRow>
                                                     )}
