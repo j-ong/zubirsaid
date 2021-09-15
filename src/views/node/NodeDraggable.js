@@ -1,8 +1,10 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 import {Router} from 'react-router';
-
+import CloseIcon from '@material-ui/icons/Close';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import MainCard from '../../ui-component/cards/MainCard';
+import Box from '@material-ui/core/Box'
 import {
     Button,
     CardActions,
@@ -12,7 +14,7 @@ import {
     Card,
     CardActionArea,
     CardMedia,
-    Typography
+    Typography, Table, TableCell, TableRow, TableBody
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { BrowserRouter, Link } from 'react-router-dom';
@@ -174,13 +176,27 @@ export class DraggableDialog extends React.Component{
                     itemID={this.state.itemID}
                     key = {this.state.itemID}
                     onClose={this.closeChild}
+                    padding={"10px"}
                     //defaultPosition = {{x:this.state.defaultPosition.x,y:this.state.defaultPosition.y}}
                     {...dragHandlers} >
-                    <Card className="box no-cursor -border-all"  >
-                        <strong className="cursor">
-                            <Button className={"button"}>Click to Drag</Button>
-                            <Button align={"right"} onClick={this.closeChild}>&times;</Button>
-                        </strong>
+                    <Card className="box no-cursor -border-all" >
+                        <Grid className="cursor">
+                            {/*<Button className={"button"}>Click to Drag</Button>*/}
+                            <Table>
+                                <TableBody >
+                                    <TableRow border={0}>
+
+                                        <TableCell align={"right"}>
+                                            <DragHandleIcon horizontalAlign="center" justifyContent="center" edge={"end"}></DragHandleIcon>
+                                        </TableCell>
+
+                                        <TableCell align={"right"}>
+                                            <CloseIcon align={"right"} alignItems={"right"} onClick={this.closeChild} edge={"end"}></CloseIcon>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </Grid>
                         <CardContent>
                             <Grid><h2>{this.state.data.properties.label}</h2></Grid>
                             <Grid>

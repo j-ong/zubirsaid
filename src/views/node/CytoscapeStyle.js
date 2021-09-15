@@ -5,12 +5,16 @@ export const nodeStyle=(label=null)=>{
             // boundingBox:true,
             // content: 'data(label)',
             "text-wrap" : "wrap",
-            "text-max-width" : "200px",
+            "text-overflow-wrap":"whitespace",
+            "text-max-width" : "80px",
+            "background-color":"#cec6a8",
             "font-size":'10px',
             "compound-sizing-wrt-labels":"include",
-            "text-overflow-wrap":"whitespace",
             "text-halign":"center",
             "text-valign":"center",
+            "width": label.length*3,
+            "height":label.length*3,
+            'curve-style': 'cola',
         }
     )
 }
@@ -23,13 +27,16 @@ export const nodeMainStyle=(label=null)=>{
             // content:"data(label)",
             "shape":'ellipse',
             "text-wrap" : "wrap",
-            "text-max-width" : "200px",
-            "background-color":"#add8e6",
+            "text-overflow-wrap":"whitespace",
+            "text-max-width" : "80px",
+            "background-color":"#f2eae0",
             "font-size":'10px',
             "compound-sizing-wrt-labels":"include",
-            "text-overflow-wrap":"whitespace",
             "text-halign":"center",
             "text-valign":"center",
+            "width": label.length*3,
+            "height":label.length*3,
+            'curve-style': 'cola',
 
         }
     )
@@ -44,8 +51,9 @@ export const edgeStyle=(label=null)=>{
             "text-rotation":"autorotate",
             "font-size":'10px',
             "text-wrap":"wrap",
-            "text-max-width":100,
             "text-overflow-wrap":"whitespace",
+            "text-max-width":100,
+            "background-color":"#90CAF9",
             "text-halign":"center",
             "text-valign":"top",
         }

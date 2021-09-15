@@ -6,6 +6,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import cola from 'cytoscape-cola';
 import Grid from '@material-ui/core/Grid';
 import{ DraggableDialog} from './NodeDraggable'
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -87,6 +88,7 @@ export class CytoscapeObj extends React.Component {
                         data={e.cy.cytoscape_data[node.data().id.replace("node_","")]}
                         x={node.position().x-e.cy.width()}
                         y={node.position().y-e.cy.height()}
+                        padding={"10px"}
                         updateShowChild={
                             function(evt,current_node_id){
                                 let temp_index =e.cy.elements().findIndex(node=>{return node.data().id===current_node_id});
@@ -167,8 +169,8 @@ export class CytoscapeObj extends React.Component {
             return(
             <React.Fragment>
                 <Grid container>
-                    <Grid id={"CytoscapeBox"}  itemID={"CytoscapeBox"} sx={{ width: 1/2 }}>
-                        <h2>Knowledge Graph</h2>
+                    <Grid id={"CytoscapeBox"}  itemID={"CytoscapeBox"} sx={{ width: 1/2 }} padding={"10px"}>
+                        <Typography variant={"h2"}>Knowledge Graph</Typography>
                         {
                             this.state.cy =(
                                 <CytoscapeComponent
@@ -191,8 +193,8 @@ export class CytoscapeObj extends React.Component {
                             )
                         }
                     </Grid>
-                    <Grid id={"PopupBox"} itemID={"PopupBox"} sx={{ width: 1/2 }} bgcolor={'aliceblue'}>
-                        <h2>Description</h2>
+                    <Grid id={"PopupBox"} itemID={"PopupBox"} sx={{ width: 1/2 }} bgcolor={'aliceblue'} padding={"10px"}>
+                        <Typography variant={"h2"}>Description</Typography>
                         <Grid id={"PopupDiv"} itemID={"PopupDiv"}>
                         </Grid>
                     </Grid>
