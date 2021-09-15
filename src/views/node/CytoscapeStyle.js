@@ -12,8 +12,8 @@ export const nodeStyle=(label=null)=>{
             "compound-sizing-wrt-labels":"include",
             "text-halign":"center",
             "text-valign":"center",
-            "width": label.length*3,
-            "height":label.length*3,
+            "width":label.length*2,
+            "height":label.length*2,
             'curve-style': 'cola',
         }
     )
@@ -22,7 +22,7 @@ export const nodeStyle=(label=null)=>{
 export const nodeMainStyle=(label=null)=>{
     return(
         {
-            label:label,
+            // label:label,
             // boundingBox:true,
             // content:"data(label)",
             "shape":'ellipse',
@@ -34,8 +34,8 @@ export const nodeMainStyle=(label=null)=>{
             "compound-sizing-wrt-labels":"include",
             "text-halign":"center",
             "text-valign":"center",
-            "width": label.length*3,
-            "height":label.length*3,
+            "width":label.length*2,
+            "height":label.length*2,
             'curve-style': 'cola',
 
         }
@@ -52,10 +52,12 @@ export const edgeStyle=(label=null)=>{
             "font-size":'10px',
             "text-wrap":"wrap",
             "text-overflow-wrap":"whitespace",
-            "text-max-width":100,
+            "text-max-width" : "80px",
             "background-color":"#90CAF9",
             "text-halign":"center",
             "text-valign":"top",
+            "text-margin-x":"10px",
+            "text-margin-y":"10px"
         }
     )
 }
