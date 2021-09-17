@@ -51,7 +51,7 @@ const generateTopics = () => {
             },
             {
                 id: 'social-network',
-                title: 'Social Network Person',
+                title: 'Social Network',
                 type: 'item',
                 url: '/node/Person',
                 icon: icons['IconSocial'],
@@ -157,7 +157,8 @@ const generateTopics = () => {
                 title: label,
                 type: 'item',
                 url: `/node/${id}`,
-                target: false
+                target: false,
+                breadcrumbs: false
             });
         });
     };
