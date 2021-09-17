@@ -51,11 +51,19 @@ const generateTopics = () => {
             },
             {
                 id: 'social-network',
-                title: 'Social Network',
-                type: 'collapse',
+                title: 'Social Network Person',
+                type: 'item',
+                url: '/node/Person',
                 icon: icons['IconSocial'],
-                children: []
+                breadcrumbs: false
             },
+            // {
+            //     id: 'social-network',
+            //     title: 'Social Network',
+            //     type: 'collapse',
+            //     icon: icons['IconSocial'],
+            //     children: []
+            // },
             {
                 id: 'organization',
                 title: 'Organizations',
@@ -70,21 +78,6 @@ const generateTopics = () => {
                 icon: icons['IconCalendarEvent'],
                 children: []
             },
-            {
-                id: 'reply-actions',
-                title: 'Reply Actions',
-                type: 'collapse',
-                icon: icons['IconMessageCircle2'],
-                children: []
-            },
-            // {
-            //     id: 'reply-actions',
-            //     title: 'Reply Actions',
-            //     type: 'item',
-            //     url: '/node/ReplyAction',
-            //     icon: icons['IconMessageCircle2'],
-            //     breadcrumbs: false
-            // },
             {
                 id: 'genres',
                 title: 'Genres',
@@ -104,13 +97,6 @@ const generateTopics = () => {
                 title: 'Awards',
                 type: 'collapse',
                 icon: icons['IconAward'],
-                children: []
-            },
-            {
-                id: 'civic-structure',
-                title: 'Civic Structure',
-                type: 'collapse',
-                icon: icons['IconMap2'],
                 children: []
             },
             {
@@ -176,17 +162,15 @@ const generateTopics = () => {
         });
     };
     getSubMenu('MusicalWork', 0);
-    getSubMenu('Person', 1);
+    // getSubMenu('Person', 1);
     getSubMenu('Organization', 2);
     getSubMenu('Event', 3);
-    getSubMenu('ReplyAction', 4);
-    getSubMenu('CreativeWork', 5);
-    getSubMenu('Topic', 6);
-    getSubMenu('Award', 7);
-    getSubMenu('Place', 8);
-    getSubMenu('MusicalExpression', 9);
-    getSubMenu('Document', 10);
-    getSubMenu('Item', 11);
+    getSubMenu('CreativeWork', 4);
+    getSubMenu('Topic', 5);
+    getSubMenu('Award', 6);
+    getSubMenu('MusicalExpression', 7);
+    getSubMenu('Document', 8);
+    getSubMenu('Item', 9);
 
     return topic;
 };
