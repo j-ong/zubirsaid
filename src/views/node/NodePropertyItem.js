@@ -294,7 +294,7 @@ const NodePropertyItem = ({ loading, property }) => {
                             <Grid item xs={12}>
                                 {property.id && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     ID
@@ -313,7 +313,7 @@ const NodePropertyItem = ({ loading, property }) => {
 
                                 {property.birthDate && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     Birth Date
@@ -332,7 +332,7 @@ const NodePropertyItem = ({ loading, property }) => {
 
                                 {property.deathDate && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     Death Date
@@ -351,7 +351,7 @@ const NodePropertyItem = ({ loading, property }) => {
 
                                 {property.date && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     Date
@@ -369,7 +369,7 @@ const NodePropertyItem = ({ loading, property }) => {
 
                                 {property.streetAddress && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     Address
@@ -387,7 +387,7 @@ const NodePropertyItem = ({ loading, property }) => {
 
                                 {property.addressLocality && (
                                     <Fragment>
-                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="column">
+                                        <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                     Vicinity
