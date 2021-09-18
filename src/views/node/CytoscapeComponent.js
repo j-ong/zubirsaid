@@ -78,8 +78,10 @@ export class CytoscapeObj extends React.Component {
                 let return_arr = [];
 
                 input_array.forEach(node=>{
+                    // {
+                    //     console.log(node.data())
+                    // }
                     (
-
                     return_arr.push(
                         <DraggableDialog
                         itemID={node.data().id.replace("node_","popup_")}
@@ -88,6 +90,7 @@ export class CytoscapeObj extends React.Component {
                         data={e.cy.cytoscape_data[node.data().id.replace("node_","")]}
                         x={node.position().x-e.cy.width()}
                         y={node.position().y-e.cy.height()}
+                        label = {node.data().label}
                         padding={"10px"}
                         updateShowChild={
                             function(evt,current_node_id){

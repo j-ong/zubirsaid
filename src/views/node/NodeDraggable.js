@@ -53,6 +53,7 @@ export class DraggableDialog extends React.Component {
         this.state.itemID = (this.props.itemID && props.itemID) || '';
         this.state.id = this.state.itemID.replace('popup_', '');
         this.state.node_id = this.props.itemID.replace('popup_', 'node_');
+        this.state.label = this.props.label;
         this.state.showChild = this.props.showChild;
         if (this.state.data == null) {
             this.state.data = this.props.data;
@@ -253,7 +254,7 @@ export class DraggableDialog extends React.Component {
                                         this.linkClicked(this.state.id);
                                     }}
                                 >
-                                    View more
+                                    <Typography variant="subtitle2">View more information on {this.state.label}</Typography>
                                     <ChevronRightOutlinedIcon />
                                 </Button>
                             </Grid>
