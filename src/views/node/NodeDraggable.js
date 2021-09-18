@@ -175,7 +175,7 @@ export class DraggableDialog extends React.Component {
                         //defaultPosition = {{x:this.state.defaultPosition.x,y:this.state.defaultPosition.y}}
                         {...dragHandlers}
                     >
-                        <Card className="box no-cursor -border-all">
+                        <Grid className="box no-cursor -border-all">
                             <Grid className="cursor">
                                 {/*<Button className={"button"}>Click to Drag</Button>*/}
                                 <Table>
@@ -201,7 +201,7 @@ export class DraggableDialog extends React.Component {
                                     </TableBody>
                                 </Table>
                             </Grid>
-                            <CardContent>
+                            <Grid>
                                 <Grid>
                                     <h2>{this.state.data.properties.label}</h2>
                                 </Grid>
@@ -244,8 +244,8 @@ export class DraggableDialog extends React.Component {
                                             </Typography>
                                         </Grid>
                                     ))}
-                            </CardContent>
-                            <CardActions>
+                            </Grid>
+                            <Grid>
                                 <Button
                                     size="small"
                                     disableElevation
@@ -256,8 +256,8 @@ export class DraggableDialog extends React.Component {
                                     View more
                                     <ChevronRightOutlinedIcon />
                                 </Button>
-                            </CardActions>
-                        </Card>
+                            </Grid>
+                        </Grid>
                     </Draggable>
                 )}
             </React.Fragment>
