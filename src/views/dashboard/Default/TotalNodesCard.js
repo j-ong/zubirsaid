@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const TotalNodesCard = ({ isLoading, genreCount, songCount }) => {
+const TotalNodesCard = ({ isLoading, essayCount, songCount, bioCount }) => {
     const classes = useStyles();
 
     return (
@@ -116,12 +116,23 @@ const TotalNodesCard = ({ isLoading, genreCount, songCount }) => {
                         <Grid item>
                             <Grid container alignItems="center">
                                 <Grid item>
-                                    <Typography className={classes.cardHeading}>{genreCount}</Typography>
+                                    <Typography className={classes.cardHeading}>{essayCount}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
-                            <Typography className={classes.subHeading}>Total Genres</Typography>
+                            <Typography className={classes.subHeading}>Essays</Typography>
+                        </Grid>
+
+                        <Grid item>
+                            <Grid container alignItems="center">
+                                <Grid item>
+                                    <Typography className={classes.cardHeading}>{bioCount}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item sx={{ mb: 1.25 }}>
+                            <Typography className={classes.subHeading}>Biographies</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>

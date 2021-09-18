@@ -20,23 +20,31 @@ import axios from 'axios';
 
 const Dashboard = () => {
     const [counter, setCounter] = useState(0);
+    const [bioCounter, setBioCounter] = useState(0)
     const [songList, setSongList] = useState([]);
     const [songCounter, setSongCounter] = useState(0)
 
-    const getGenreCount = async () => {
-        const res = await axios.get('https://chriskhoo.net/ZS/0/CreativeWork');
+    const getEssayCount = async () => {
+        const res = await axios.get('https://chriskhoo.net/ZS/0/Essay');
 
         var data = res.data;
         var loopData = [];
-        for (var i = 0; i < data.length; i++) {
-            if ((data[i]._fields[2].properties.label = 'Creative Work')) {
-                loopData.push(data[i]._fields[2].properties);
-            }
-        }
-
-        var count = loopData.length;
+        
+        var count = data.length - 1;
         setCounter(count);
     };
+
+    const getBioCount = async () => {
+        const res = await axios.get('https://chriskhoo.net/ZS/0/Biography');
+
+        var data = res.data;
+        var loopData = [];
+        
+        var count = data.length - 1;
+        setBioCounter(count);
+    };
+
+
 
     const getSongs = async () => {
         const res = await axios.get('https://chriskhoo.net/ZS/0/MusicalWork');
@@ -86,7 +94,9 @@ const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
-        getGenreCount();
+        getEssayCount();
+        getEssayCount();
+        getBioCount();
         getSongs();
     }, []);
 
@@ -100,7 +110,7 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing} direction="row">
                     <Grid item xs={12} md={6}>
-                        <TotalNodesCard isLoading={isLoading} genreCount={counter} songCount={songCounter} style={section} />
+                        <TotalNodesCard isLoading={isLoading} essayCount={counter} songCount={songCounter} bioCount={bioCounter} style={section} />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
