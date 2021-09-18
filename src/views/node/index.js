@@ -47,8 +47,8 @@ const Node = ({ match }) => {
             <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} position="static">
-                <Tab label="Main Information" value="0" />
-                <Tab label="Graphic Visualization" value="1" />
+                <Tab label="Text View" value="0" />
+                <Tab label="Graph View" value="1" />
             </TabList>
             </Box>
             <TabPanel value="0">
