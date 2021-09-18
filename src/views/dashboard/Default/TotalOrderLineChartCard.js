@@ -128,14 +128,7 @@ const TotalOrderLineChartCard = ({ isLoading, songList}) => {
                             <Grid container alignItems="center" spacing={gridSpacing}>
                                 <Grid container alignItems="center" justifyContent="space-between" >
                                         <Grid item>
-                                            <Typography variant="h3" paddingTop="20px" paddingLeft="25px">Works of Zubir Said </Typography>
-                                        </Grid>
-                                        <Grid item paddingTop="20px">
-                                           <Link to={`/node/MusicalWork`} style={{ textDecoration: 'none', color: 'black' }}>
-                                                <MenuItem>
-                                                    <MusicNoteIcon fontSize="inherit" className={classes.menuItem} /> View song list
-                                                </MenuItem>
-                                            </Link>
+                                            <Typography variant="h3" paddingTop="20px" paddingLeft="25px">Videos of Zubir Said </Typography>
                                         </Grid>
                                 </Grid>
                                 {isOpened && (
