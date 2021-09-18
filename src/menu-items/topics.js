@@ -123,44 +123,81 @@ const generateTopics = () => {
         ]
     };
 
+
+    const bCheckLength = async (menuType) =>{
+        const res = await axios.get(`https://chriskhoo.net/ZS/0/${menuType}`);
+        var data = res.data;
+        if (data.length <= 1)
+        {
+            console.log("<=1")
+            console.log(menuType)
+            console.log(data.length)
+            console.log(data)
+            return false
+        }
+        else{
+            console.log(">1")
+            console.log(menuType)
+            console.log(data.length)
+            console.log(data)
+            return false
+        }
+
+    }
+
     //Generate sub menu
     const getSubMenu = async (menuType, index) => {
-        const res = await axios.get(`https://chriskhoo.net/ZS/0/${menuType}`);
+        var _url = `https://chriskhoo.net/ZS/0/${menuType}`;
+        const res = await axios.get(_url);
 
         var data = res.data;
         var loopData = [];
+        // console.log(menuType);
+        // console.log(data);
+        var bPrint = false;
+        var bComplete = false;
         for (var i = 0; i < data.length; i++) {
             if (menuType === 'Person' || menuType === 'Event') {
                 if (data[i]._fields[2].properties.type === 'Taxonomy') {
-                    loopData.push(data[i]._fields[2].properties);
+                    // bPrint= await bCheckLength(data[i]._fields[2].properties.id);
+                    // if(bPrint){
+                        loopData.push(data[i]._fields[2].properties);
+                    // }
                 }
             } else {
-                loopData.push(data[i]._fields[2].properties);
+                // bPrint= await bCheckLength(data[i]._fields[2].properties.id)
+                // if(bPrint){
+                    loopData.push(data[i]._fields[2].properties);
+                // }
             }
         }
+        bComplete = true
 
-        loopData.sort(function (a, b) {
-            if (a.label < b.label) {
-                return -1;
-            }
-            if (a.label > b.label) {
-                return 1;
-            }
-            return 0;
-        });
-
-        loopData.forEach((menu) => {
-            let id = menu.id;
-            let label = menu.label;
-            topic.children[index].children.push({
-                id: id,
-                title: label,
-                type: 'item',
-                url: `/node/${id}`,
-                target: false,
-                breadcrumbs: false
+        if(bComplete){
+            loopData.sort(function (a, b) {
+                if (a.label < b.label) {
+                    return -1;
+                }
+                if (a.label > b.label) {
+                    return 1;
+                }
+                return 0;
             });
-        });
+
+            loopData.forEach((menu) => {
+                let id = menu.id;
+                let label = menu.label;
+                topic.children[index].children.push({
+                    id: id,
+                    title: label,
+                    type: 'item',
+                    url: `/node/${id}`,
+                    target: false,
+                    breadcrumbs: false
+                });
+            });
+        }
+
     };
     getSubMenu('MusicalWork', 0);
     // getSubMenu('Person', 1);
