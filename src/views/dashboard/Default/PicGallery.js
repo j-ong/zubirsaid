@@ -6,7 +6,7 @@ import Zubirscore from './../../../assets/images/zs/zubircompose.jpeg';
 
 import { Button, Grid, Typography } from '@material-ui/core';
 
-const PicGallery = () => {
+const PicGallery = ({photoList}) => {
     //changed to usestate - so that do not need to use this. below.
     const [index, setIndex] = useState(0);
 
@@ -36,7 +36,7 @@ const PicGallery = () => {
 
     return (
         <div>
-            <img src={picList[index]} width="100%" height="100%" alt="Zubir Said" /> <br />
+            <img src={photoList[index]} width="100%" height="100%" alt="Zubir Said" /> <br />
             <Grid container alignItems="center" justifyContent="center" direction="row" spacing={2}>
                 <Grid item>
                     <Typography variant="subtitle2" color="inherit">
@@ -51,7 +51,7 @@ const PicGallery = () => {
 
                 <Grid item>
                     <Typography variant="subtitle2" color="inherit">
-                        {index < picList.length - 1 && (
+                        {index < photoList.length - 1 && (
                             <Button
                                 variant="contained"
                                 color="secondary"

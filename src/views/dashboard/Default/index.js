@@ -23,6 +23,7 @@ const Dashboard = () => {
     const [bioCounter, setBioCounter] = useState(0)
     const [songList, setSongList] = useState([]);
     const [songCounter, setSongCounter] = useState(0)
+    const [photoList, setPhotoList] = useState([]);
 
     const getEssayCount = async () => {
         const res = await axios.get('https://chriskhoo.net/ZS/0/Essay');
@@ -91,6 +92,18 @@ const Dashboard = () => {
         setSongList(playlist) 
     };
 
+    const getPhotos = async () => {
+        const res = await axios.get('https://chriskhoo.net/ZS/0/Photograph');
+
+        var data = res.data;
+        var loopData = [];
+       
+        for (var i = 1; i < data.length; i++) {
+            loopData.push(data[i]._fields[2].properties.accessURL);
+        }
+        setPhotoList(loopData)
+    }
+
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
@@ -98,6 +111,7 @@ const Dashboard = () => {
         getEssayCount();
         getBioCount();
         getSongs();
+        getPhotos();
     }, []);
 
     const section = {
@@ -124,7 +138,7 @@ const Dashboard = () => {
                         <TotalOrderLineChartCard isLoading={isLoading} songList={songList} style={section} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TotalGrowthBarChart isLoading={isLoading} style={section} />
+                        <TotalGrowthBarChart isLoading={isLoading} photoList={photoList} style={section} />
                     </Grid>
                     {/* <Grid item xs={12} md={4}>
                         <TotalGrowthBarChart isLoading={isLoading} style={section} />
