@@ -53,6 +53,7 @@ export class DraggableDialog extends React.Component {
         this.state.itemID = (this.props.itemID && props.itemID) || '';
         this.state.id = this.state.itemID.replace('popup_', '');
         this.state.node_id = this.props.itemID.replace('popup_', 'node_');
+        this.state.label = this.props.label;
         this.state.showChild = this.props.showChild;
         if (this.state.data == null) {
             this.state.data = this.props.data;
@@ -175,7 +176,7 @@ export class DraggableDialog extends React.Component {
                         //defaultPosition = {{x:this.state.defaultPosition.x,y:this.state.defaultPosition.y}}
                         {...dragHandlers}
                     >
-                        <Card className="box no-cursor -border-all">
+                        <Grid className="box no-cursor -border-all">
                             <Grid className="cursor">
                                 {/*<Button className={"button"}>Click to Drag</Button>*/}
                                 <Table>
@@ -201,7 +202,7 @@ export class DraggableDialog extends React.Component {
                                     </TableBody>
                                 </Table>
                             </Grid>
-                            <CardContent>
+                            <Grid>
                                 <Grid>
                                     <h2>{this.state.data.properties.label}</h2>
                                 </Grid>
@@ -244,8 +245,8 @@ export class DraggableDialog extends React.Component {
                                             </Typography>
                                         </Grid>
                                     ))}
-                            </CardContent>
-                            <CardActions>
+                            </Grid>
+                            <Grid>
                                 <Button
                                     size="small"
                                     disableElevation
@@ -253,11 +254,11 @@ export class DraggableDialog extends React.Component {
                                         this.linkClicked(this.state.id);
                                     }}
                                 >
-                                    View more
+                                    <Typography variant="subtitle2">View more information on {this.state.label}</Typography>
                                     <ChevronRightOutlinedIcon />
                                 </Button>
-                            </CardActions>
-                        </Card>
+                            </Grid>
+                        </Grid>
                     </Draggable>
                 )}
             </React.Fragment>

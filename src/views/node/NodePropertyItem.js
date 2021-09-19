@@ -442,7 +442,7 @@ const NodePropertyItem = ({ loading, property }) => {
                     <CardActions className={classes.cardAction}>
                         <Link to={`/node/${property.id}`} style={{ textDecoration: 'none' }}>
                             <Button size="small" disableElevation>
-                                View more
+                                View more information on {property.label}
                                 <ChevronRightOutlinedIcon />
                             </Button>
                         </Link>
