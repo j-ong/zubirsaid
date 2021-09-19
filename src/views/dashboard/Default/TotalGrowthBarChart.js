@@ -36,7 +36,7 @@ import PicGallery from './PicGallery';
 
 //-----------------------|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||-----------------------//
 
-const TotalGrowthBarChart = ({ isLoading }) => {
+const TotalGrowthBarChart = ({ isLoading, photoList }) => {
     // const [value, setValue] = React.useState('today');
     const theme = useTheme();
 
@@ -104,7 +104,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <PicGallery />
+                            <PicGallery photoList={photoList} />
                         </Grid>
                     </Grid>
                 </MainCard>
