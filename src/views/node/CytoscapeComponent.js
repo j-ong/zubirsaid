@@ -58,7 +58,7 @@ export class CytoscapeObj extends React.Component {
                 edge.cytoClass=["edge"];
             });
 
-            this.cy.nodes().on('click',
+            this.cy.nodes().on('tap',
                 function(e){
                     let current_node_id = e.target.id();
                     let current_node = e.cy.nodes().getElementById(current_node_id);
