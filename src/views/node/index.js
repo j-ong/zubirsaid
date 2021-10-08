@@ -92,7 +92,7 @@ const Node = ({ match }) => {
                                                 (key,index) => {
 
                                                     if(!list_of_properties_to_exclude.includes(key)) {
-                                                        if (key.includes("date")) {
+                                                        if (key.toUpperCase().includes("DATE")) {
                                                             return (
                                                                 <ListItem>
                                                                     <Grid container alignItems="flex-start"
