@@ -5,17 +5,43 @@ import React from 'react';
 import { useTheme } from '@material-ui/styles';
 import { Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
 
+import {ArrowBack,ArrowForward} from '@material-ui/icons'
+
 //-----------------------|| CUSTOM SUB CARD ||-----------------------//
 
 const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {}, title, node, sign, ...others }) => {
     const theme = useTheme();
 
     console.log(node);
+    //
+    //
+    // if(sign===null){
+    //     sign = '';
+    // }
 
 
-    if(sign===null){
-        sign = '';
+    let symbol =(sign)=>
+    {
+        try{
+            if(sign != null){
+                if(String(sign) === String("=>")){
+                    return <ArrowForward fontSize="inherit"/>;
+                }
+                else if(String(sign) === String("<=")){
+                    return <ArrowBack fontSize="inherit"/>;
+                }
+                else{
+                    return String(sign) + "a" + "a";
+                }
+            }
+        }
+        catch(err){
+
+        }
+
     }
+
+
 
     return (
         <Card
@@ -30,8 +56,12 @@ const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {
             {...others}
         >
             {/* card header and action */}
-            {!darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + sign}</Typography>} action={secondary} />}
-            {darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + sign}</Typography>} action={secondary} />}
+            {!darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + " " }
+                {symbol(sign)}
+            </Typography>} action={secondary} />}
+            {darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + " " }
+
+            </Typography>} action={secondary} />}
 
             {/* content & header divider */}
             {title && (

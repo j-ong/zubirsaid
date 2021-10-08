@@ -99,10 +99,10 @@ const MainlistState = (props) => {
                     if(groupsign[groupName] == null){
                         let current_sign = ""
                         if (data[i]._fields[0].identity.low !== data[i]._fields[1].start.low)
-                        { current_sign = ' <= '  // relation arrow points backward
+                        { current_sign = '<='  // relation arrow points backward
                         }
                         else if (data[i]._fields[0].identity.low === data[i]._fields[1].start.low) {
-                            current_sign += ' =>' // relation arrow points forward
+                            current_sign += '=>' // relation arrow points forward
                         }
                         else {
                             current_sign = ""

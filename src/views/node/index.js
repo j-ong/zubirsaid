@@ -5,12 +5,14 @@ import uuid from 'react-uuid';
 
 //import context
 import MainlistContext from '../../contexts/mainlist/mainlistContext';
+import { makeStyles } from '@material-ui/styles';
+
 
 //import nodeItem components
 import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
-import { Grid, Tab, Box, Typography } from '@material-ui/core';
+import { Grid, Tab, Box, Typography, Button, CardActions } from '@material-ui/core';
 
 import {TabContext, TabPanel,TabList} from '@material-ui/lab';
 // import { Typography } from '@material-ui/core';
@@ -26,11 +28,108 @@ import { gridSpacing } from './../../store/constant';
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
 import {CytoscapeObj} from './CytoscapeComponent';
 import { gridSortModelSelector } from '@material-ui/data-grid';
+import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import Image from '@material-ui/icons/Image';
+import ReactPlayer from 'react-player/youtube';
+import Movie from '@material-ui/icons/Movie';
+import Launch from '@material-ui/icons/Launch';
 
+
+// style constant
+const useStyles = makeStyles((theme) => ({
+    card: {
+        overflow: 'hidden',
+        position: 'relative',
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            width: '210px',
+            height: '210px',
+            background: 'linear-gradient(210.04deg, ' + theme.palette.warning.dark + ' -50.94%, rgba(144, 202, 249, 0) 83.49%)',
+            borderRadius: '50%',
+            top: '-30px',
+            right: '-180px'
+        },
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            width: '210px',
+            height: '210px',
+            background: 'linear-gradient(140.9deg, ' + theme.palette.warning.dark + ' -14.02%, rgba(144, 202, 249, 0) 70.50%)',
+            borderRadius: '50%',
+            top: '-160px',
+            right: '-130px'
+        }
+    },
+    content: {
+        padding: '0px !important'
+    },
+    avatar: {
+        ...theme.typography.commonAvatar,
+        ...theme.typography.largeAvatar,
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.main
+    },
+    secondary: {
+        color: theme.palette.grey[500],
+        marginTop: '5px'
+    },
+    padding: {
+        paddingTop: 0,
+        paddingBottom: 0
+    },
+
+    // Additonal styles
+    cardAction: {
+        padding: '10px',
+        justifyContent: 'center'
+        // borderTop: '1px solid',
+        // borderColor: theme.palette.primary.light
+    },
+    cardActionImage: {
+        padding: '10px',
+        justifyContent: 'center',
+        backgroundColor: theme.palette.secondary.light
+    },
+    primaryLight: {
+        color: theme.palette.primary[200],
+        cursor: 'pointer'
+    },
+    divider: {
+        marginTop: '12px',
+        marginBottom: '12px'
+    },
+    avatarSuccess: {
+        width: '16px',
+        height: '16px',
+        borderRadius: '5px',
+        backgroundColor: theme.palette.success.light,
+        color: theme.palette.success.dark,
+        marginLeft: '15px'
+    },
+    successDark: {
+        color: theme.palette.success.dark
+    },
+    avatarError: {
+        width: '16px',
+        height: '16px',
+        borderRadius: '5px',
+        backgroundColor: theme.palette.orange.light,
+        color: theme.palette.orange.dark,
+        marginLeft: '15px'
+    },
+    errorDark: {
+        color: theme.palette.orange.dark
+    }
+}));
 
 //==============================|| SAMPLE PAGE ||==============================//
 
 const Node = ({ match }) => {
+    const classes = useStyles();
     const mainlistContext = useContext(MainlistContext);
     const { nodes, cytoscape_nodes,cytoscape_edges, cytoscape_data, current_node_data, getNodes, nodeSummary, loading } = mainlistContext;
     const [value, setValue] = React.useState("0");
@@ -58,6 +157,78 @@ const Node = ({ match }) => {
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+
+    const showAccessURL = (link) => {
+        if (link.includes('pdf')) {
+            return (
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    className={classes.margin}
+                    disableElevation
+                    startIcon={<PictureAsPdf />}
+                >
+                    PDF
+                </Button>
+            );
+        } else if (link.includes('jpg') || link.includes('png')) {
+            return (
+                <Card className={classes.root}>
+                    <CardActionArea>
+                        <CardMedia component="img" width="auto" image={link} />
+                    </CardActionArea>
+                    <CardActions className={classes.cardActionImage}>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"
+                            className={classes.margin}
+                            disableElevation
+                            startIcon={<Image />}
+                        >
+                            Image Source
+                        </Button>
+                    </CardActions>
+                </Card>
+            );
+        } else if (link.includes('youtube')) {
+            return (
+                <Card className={classes.root}>
+                    <CardActionArea>
+                        <ReactPlayer url={link} width="auto" controls="true" />
+                    </CardActionArea>
+                    <CardActions className={classes.cardActionImage}>
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"
+                            className={classes.margin}
+                            disableElevation
+                            startIcon={<Movie />}
+                        >
+                            Video
+                        </Button>
+                    </CardActions>
+                </Card>
+            );
+        } else {
+            return (
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    className={classes.margin}
+                    disableElevation
+                    startIcon={<Launch />}
+                >
+                    Webpage
+                </Button>
+            );
+        }
+    };
+
     return (
         <MainCard title={
             nodeSummary.label + current_node_type
@@ -204,7 +375,7 @@ const Node = ({ match }) => {
                                                             <Grid item key={index}>
                                                                 <Typography variant="subtitle2" color="inherit">
                                                                     <a href={link} style={{ textDecoration: 'none' }}>
-                                                                        {link}
+                                                                        {showAccessURL(link)}
                                                                     </a>
                                                                 </Typography>
                                                             </Grid>
