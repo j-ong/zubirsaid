@@ -10,7 +10,7 @@ import MainlistContext from '../../contexts/mainlist/mainlistContext';
 import NodePropertyItem from './NodePropertyItem';
 
 // material-ui
-import { Grid, Tab, Box } from '@material-ui/core';
+import { Grid, Tab, Box, Typography } from '@material-ui/core';
 
 import {TabContext, TabPanel,TabList} from '@material-ui/lab';
 // import { Typography } from '@material-ui/core';
@@ -19,23 +19,39 @@ import {TabContext, TabPanel,TabList} from '@material-ui/lab';
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
 import SubCard from './../../ui-component/cards/SubCard';
+import {List,ListItem,Divider} from '@material-ui/core';
 import { gridSpacing } from './../../store/constant';
 
 //Cytoscape components
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
 import {CytoscapeObj} from './CytoscapeComponent';
+import { gridSortModelSelector } from '@material-ui/data-grid';
 
 
 //==============================|| SAMPLE PAGE ||==============================//
 
 const Node = ({ match }) => {
     const mainlistContext = useContext(MainlistContext);
-    const { nodes, cytoscape_nodes,cytoscape_edges, cytoscape_data, getNodes, nodeSummary, loading } = mainlistContext;
+    const { nodes, cytoscape_nodes,cytoscape_edges, cytoscape_data, current_node_data, getNodes, nodeSummary, loading } = mainlistContext;
     const [value, setValue] = React.useState("0");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const list_of_properties_to_exclude = ["label","id","type","comment","accessURL"];
+    const date_arr=["date","Date"];
+
+
+
+
+    let current_node_type = '';
+
+    try{
+        current_node_type = ' ('+ current_node_data._fields[0].properties["type"]  +')';
+    }
+    catch(err){
+
+    }
 
     useEffect(() => {
         //supplies the nodeid to src/contexts/mainlist/MainlistState.js
@@ -43,7 +59,9 @@ const Node = ({ match }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <MainCard title={nodeSummary.label}>
+        <MainCard title={
+            nodeSummary.label + current_node_type
+            }>
             <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} position="static">
@@ -52,12 +70,167 @@ const Node = ({ match }) => {
             </TabList>
             </Box>
             <TabPanel value="0">
-            <Grid container spacing={gridSpacing}>
 
+
+            <Grid container spacing={gridSpacing}>
+                {
+                    current_node_data && (Object.keys(current_node_data._fields[0].properties).length > list_of_properties_to_exclude.length) &&
+                    <Grid item xs={12} sm={12} key={"Main Information" }>
+                        <SubCard title={'Main Information about ' + current_node_data._fields[0].properties["label"] + current_node_type}>
+                            <Grid container spacing={gridSpacing}>
+                                {
+                                    console.log(current_node_data._fields[0].properties)
+                                }
+                                {
+                                    console.log(Object.keys(current_node_data._fields[0].properties))
+                                }
+                                {
+                                    (current_node_data._fields[0].properties != null) &&
+                                    <List>
+                                        {
+                                            Object.keys(current_node_data._fields[0].properties).sort().map(
+                                                (key,index) => {
+
+                                                    if(!list_of_properties_to_exclude.includes(key)) {
+                                                        if (key.toUpperCase().includes("DATE")) {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    {current_node_data._fields[0].properties[key].day.low}/{current_node_data._fields[0].properties[key].low}/
+                                                                                    {current_node_data._fields[0].properties[key].year.low}
+                                                                                </  Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        } else if (key.includes("accessURL")) {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    <a href={current_node_data._fields[0].properties[key]}
+                                                                                       style={{ textDecoration: 'none' }}>
+                                                                                        {current_node_data._fields[0].properties[key]}
+                                                                                    </a>
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    {current_node_data._fields[0].properties[key]}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        }
+                                                    }
+                                                }
+                                            )
+                                        }
+                                        {
+                                            current_node_data._fields[0].properties["comment"] && (current_node_data._fields[0].properties["comment"].length > 0) &&
+                                            <ListItem>
+                                                <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
+                                                    <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
+                                                        <Typography variant="subtitle1" color="inherit">
+                                                            Comment
+                                                        </Typography>
+                                                        <Typography variant="subtitle2" color="inherit">
+                                                            {current_node_data._fields[0].properties["comment"]}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Divider/>
+                                                </Grid>
+                                            </ListItem>
+                                        }
+                                        {
+                                            current_node_data._fields[0].properties["accessURL"]  &&
+                                            <ListItem>
+                                                <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
+                                                    <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
+                                                        <Typography variant="subtitle1" color="inherit">
+                                                            AccessURL:
+                                                        </Typography>
+                                                        {current_node_data._fields[0].properties["accessURL"].map((link, index) => (
+                                                            <Grid item key={index}>
+                                                                <Typography variant="subtitle2" color="inherit">
+                                                                    <a href={link} style={{ textDecoration: 'none' }}>
+                                                                        {link}
+                                                                    </a>
+                                                                </Typography>
+                                                            </Grid>
+                                                        ))}
+                                                    </Grid>
+                                                    <Divider/>
+                                                </Grid>
+                                            </ListItem>
+                                        }
+
+                                    </List>
+
+                                }
+                            </Grid>
+                        </SubCard>
+                    </Grid>
+                }
                 {
                     nodes.map((node) => (
+
                     <Grid item xs={12} sm={12} key={node.group}>
-                        <SubCard title={node.group}>
+                        <SubCard
+                            title={node.group}
+                            node={node}
+                            sign={node.sign}
+                            >
                             <Grid container spacing={gridSpacing}>
                                 {
                                     node.properties.map((property) => (
@@ -69,6 +242,7 @@ const Node = ({ match }) => {
                             </Grid>
                         </SubCard>
                     </Grid>
+
                 ))}
             </Grid>
             </TabPanel>

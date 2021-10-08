@@ -431,6 +431,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                                             {showAccessURL(link)}
                                                         </a>
                                                     </Typography>
+
                                                 </Grid>
                                             ))}
                                         </Grid>

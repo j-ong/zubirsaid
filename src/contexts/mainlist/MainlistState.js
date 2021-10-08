@@ -43,12 +43,16 @@ const MainlistState = (props) => {
         var data = res.data;
         var loopData = [];
         var groups = [];
+        var groupsign ={};
+
+
 
         // Fetch data of node (END)
 
         /*Cytoscape Portion (START)*/
         let cytoscape_main_node = 'node_' + data[0]._fields[0].properties.id;
         let current_node_name = '';
+        let current_node_type = '';
         let cytoscape_nodes = [
             {
                 data: {
@@ -62,18 +66,17 @@ const MainlistState = (props) => {
             }
         ];
         let cytoscape_edges = [];
-
         let popup_data = { a: {} };
         popup_data[data[0]._fields[0].properties.id] = {
             labels: data[0]._fields[0].labels,
             properties: data[0]._fields[0].properties
         };
+        let current_node_data = data[0];
         delete popup_data['a'];
 
         /*Cytoscape Portion (END)*/
 
         // Group data based on the the group properties (START)
-
         for (var i = 0; i < data.length; i++) {
             // if (true) {
             if (!data[i]._fields[2].labels.includes("Class")) {
@@ -89,6 +92,28 @@ const MainlistState = (props) => {
                     groups[groupName] = [];
                 }
                 groups[groupName].push(data[i]._fields[2].properties);
+
+                console.log(data[i]);
+                try{
+
+                    if(groupsign[groupName] == null){
+                        let current_sign = ""
+                        if (data[i]._fields[0].identity.low !== data[i]._fields[1].start.low)
+                        { current_sign = ' <= '  // relation arrow points backward
+                        }
+                        else if (data[i]._fields[0].identity.low === data[i]._fields[1].start.low) {
+                            current_sign += ' =>' // relation arrow points forward
+                        }
+                        else {
+                            current_sign = ""
+                        }
+                        groupsign[groupName] = {sign:current_sign};
+                    }
+                }
+                catch(err){
+
+                }
+
 
             /*Cytoscape Portion (START)*/
             // if (!data[i]._fields[2].labels.includes("Class")) {
@@ -139,7 +164,8 @@ const MainlistState = (props) => {
             if (groupName !== ('Subclass of' || 'Type')) {
                 nodeArray.push({
                     group: groupName,
-                    properties: groups[groupName]
+                    properties: groups[groupName],
+                    sign:groupsign[groupName]["sign"],
                 });
             }
         }
@@ -153,6 +179,7 @@ const MainlistState = (props) => {
             payload_cytoscape_nodes: cytoscape_nodes,
             payload_cytoscape_edges: cytoscape_edges,
             payload_cytoscape_data: popup_data,
+            payload_current_node_data:current_node_data,
             summary: nodeSummary
         });
     };
@@ -168,6 +195,7 @@ const MainlistState = (props) => {
                 cytoscape_nodes: state.cytoscape_nodes,
                 cytoscape_edges: state.cytoscape_edges,
                 cytoscape_data: state.cytoscape_data,
+                current_node_data: state.current_node_data,
                 nodeSummary: state.nodeSummary,
                 loading: state.loading,
                 getCards,

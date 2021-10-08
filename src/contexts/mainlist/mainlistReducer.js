@@ -15,6 +15,7 @@ const MainlistReducer = (state, action) => {
                 cytoscape_nodes:action.payload_cytoscape_nodes,
                 cytoscape_edges:action.payload_cytoscape_edges,
                 cytoscape_data:action.payload_cytoscape_data,
+                current_node_data:action.payload_current_node_data,
                 nodeSummary: action.summary,
                 loading: false
             };
