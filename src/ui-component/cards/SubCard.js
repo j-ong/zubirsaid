@@ -60,7 +60,7 @@ const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {
                 {symbol(sign)}
             </Typography>} action={secondary} />}
             {darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + " " }
-
+                {symbol(sign)}
             </Typography>} action={secondary} />}
 
             {/* content & header divider */}
