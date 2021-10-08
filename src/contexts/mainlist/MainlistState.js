@@ -75,50 +75,54 @@ const MainlistState = (props) => {
         // Group data based on the the group properties (START)
 
         for (var i = 0; i < data.length; i++) {
-            loopData.push(data[i]._fields);
+            // if (true) {
+            if (!data[i]._fields[2].labels.includes("Class")) {
+                loopData.push(data[i]._fields);
 
-            //group by type
-            var groupName = data[i]._fields[1].properties.label; //e.g. score, can change to [1].type if want to show type instead
+                //group by type
+                var groupName = data[i]._fields[1].properties.label; //e.g. score, can change to [1].type if want to show type instead
 
-            //capitalise first letter of the group name
-            groupName = groupName.charAt(0).toUpperCase() + groupName.slice(1);
+                //capitalise first letter of the group name
+                groupName = groupName.charAt(0).toUpperCase() + groupName.slice(1);
 
-            if (!groups[groupName]) {
-                groups[groupName] = [];
-            }
-            groups[groupName].push(data[i]._fields[2].properties);
+                if (!groups[groupName]) {
+                    groups[groupName] = [];
+                }
+                groups[groupName].push(data[i]._fields[2].properties);
 
             /*Cytoscape Portion (START)*/
-            current_node_name = 'node_' + data[i]._fields[2].properties.id;
-            cytoscape_nodes.push({
-                data: {
-                    id: current_node_name,
-                    label: data[i]._fields[2].properties.label
-                },
-                style: nodeStyle(data[i]._fields[2].properties.label),
-                className: ['nodes'],
-                classes: ['nodes']
+            // if (!data[i]._fields[2].labels.includes("Class")) {
+                current_node_name = 'node_' + data[i]._fields[2].properties.id;
+                cytoscape_nodes.push({
+                    data: {
+                        id: current_node_name,
+                        label: data[i]._fields[2].properties.label
+                    },
+                    style: nodeStyle(data[i]._fields[2].properties.label),
+                    className: ['nodes'],
+                    classes: ['nodes']
 
-                // position: { x: 50, y: 100 }
-            });
+                    // position: { x: 50, y: 100 }
+                });
 
-            // popup_data[data[i]]=data[i]._fields[2];
-            popup_data[data[i]._fields[2].properties.id] = {
-                labels: data[i]._fields[2].labels,
-                properties: data[i]._fields[2].properties
-            };
+                // popup_data[data[i]]=data[i]._fields[2];
+                popup_data[data[i]._fields[2].properties.id] = {
+                    labels: data[i]._fields[2].labels,
+                    properties: data[i]._fields[2].properties
+                };
 
-            cytoscape_edges.push({
-                data: {
-                    id: 'edge_' + cytoscape_main_node + '_' + current_node_name,
-                    source: cytoscape_main_node,
-                    target: current_node_name,
-                    label: data[i]._fields[1].type
-                },
-                style: edgeStyle(data[i]._fields[1].type),
-                className: ['edges'],
-                classes: ['edges']
-            });
+                cytoscape_edges.push({
+                    data: {
+                        id: 'edge_' + cytoscape_main_node + '_' + current_node_name,
+                        source: cytoscape_main_node,
+                        target: current_node_name,
+                        label: data[i]._fields[1].type
+                    },
+                    style: edgeStyle(data[i]._fields[1].type),
+                    className: ['edges'],
+                    classes: ['edges']
+                });
+            }
             /*Cytoscape Portion (END)*/
         }
 
