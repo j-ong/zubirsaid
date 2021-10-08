@@ -51,6 +51,7 @@ const MainlistState = (props) => {
         /*Cytoscape Portion (START)*/
         let cytoscape_main_node = 'node_' + data[0]._fields[0].properties.id;
         let current_node_name = '';
+        let current_node_type = '';
         let cytoscape_nodes = [
             {
                 data: {
@@ -78,6 +79,9 @@ const MainlistState = (props) => {
         // Group data based on the the group properties (START)
         for (var i = 0; i < data.length; i++) {
             // if (true) {
+            if (data[i]._fields[2].labels.includes("Class")) {
+
+            }
             if (!data[i]._fields[2].labels.includes("Class")) {
                 loopData.push(data[i]._fields);
 

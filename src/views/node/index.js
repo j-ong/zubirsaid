@@ -40,13 +40,25 @@ const Node = ({ match }) => {
     const list_of_properties_to_exclude = ["label","id","type","comment","accessURL"];
     const date_arr=["date","Date"];
 
+
+    let current_node_type = '';
+
+    try{
+        current_node_type = ' ('+ current_node_data[0].properties["type"]  +')';
+    }
+    catch(err){
+
+    }
+
     useEffect(() => {
         //supplies the nodeid to src/contexts/mainlist/MainlistState.js
         getNodes(match.params.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <MainCard title={nodeSummary.label}>
+        <MainCard title={
+            nodeSummary.label + current_node_type
+            }>
             <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} position="static">
@@ -61,7 +73,7 @@ const Node = ({ match }) => {
                 {
                     current_node_data && (Object.keys(current_node_data[0].properties).length > list_of_properties_to_exclude.length) &&
                     <Grid item xs={12} sm={12} key={"Main Information" }>
-                        <SubCard title={'Main Information about ' + current_node_data[0].properties["label"]}>
+                        <SubCard title={'Main Information about ' + current_node_data[0].properties["label"] + current_node_type}>
                             <Grid container spacing={gridSpacing}>
                                 {
                                     console.log(current_node_data[0].properties)
