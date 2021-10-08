@@ -71,7 +71,7 @@ const MainlistState = (props) => {
             labels: data[0]._fields[0].labels,
             properties: data[0]._fields[0].properties
         };
-        let current_node_data = data[0]._fields;
+        let current_node_data = data[0];
         delete popup_data['a'];
 
         /*Cytoscape Portion (END)*/

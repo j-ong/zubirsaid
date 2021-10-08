@@ -25,6 +25,7 @@ import { gridSpacing } from './../../store/constant';
 //Cytoscape components
 import CytoscapeComponent from 'react-cytoscapejs/src/component';
 import {CytoscapeObj} from './CytoscapeComponent';
+import { gridSortModelSelector } from '@material-ui/data-grid';
 
 
 //==============================|| SAMPLE PAGE ||==============================//
@@ -41,10 +42,12 @@ const Node = ({ match }) => {
     const date_arr=["date","Date"];
 
 
+
+
     let current_node_type = '';
 
     try{
-        current_node_type = ' ('+ current_node_data[0].properties["type"]  +')';
+        current_node_type = ' ('+ current_node_data._fields[0].properties["type"]  +')';
     }
     catch(err){
 
@@ -71,86 +74,110 @@ const Node = ({ match }) => {
 
             <Grid container spacing={gridSpacing}>
                 {
-                    current_node_data && (Object.keys(current_node_data[0].properties).length > list_of_properties_to_exclude.length) &&
+                    current_node_data && (Object.keys(current_node_data._fields[0].properties).length > list_of_properties_to_exclude.length) &&
                     <Grid item xs={12} sm={12} key={"Main Information" }>
-                        <SubCard title={'Main Information about ' + current_node_data[0].properties["label"] + current_node_type}>
+                        <SubCard title={'Main Information about ' + current_node_data._fields[0].properties["label"] + current_node_type}>
                             <Grid container spacing={gridSpacing}>
                                 {
-                                    console.log(current_node_data[0].properties)
+                                    console.log(current_node_data._fields[0].properties)
                                 }
                                 {
-                                    current_node_data &&
+                                    console.log(Object.keys(current_node_data._fields[0].properties))
+                                }
+                                {
+                                    (current_node_data._fields[0].properties != null) &&
                                     <List>
                                         {
-                                            Object.keys(current_node_data[0].properties).sort().map(
-                                                (key,index) => (
-                                                    !list_of_properties_to_exclude.includes(key) &&
-                                                    (
-                                                        key.includes("date") &&
-                                                        <ListItem>
-                                                            <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
-                                                                <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
-                                                                    <Grid item>
-                                                                        <Typography variant="subtitle1" color="inherit">
-                                                                            {key[0].toUpperCase() + key.substring(1)}:
-                                                                        </Typography>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Typography variant="subtitle2" color="inherit">
-                                                                            {current_node_data[0].properties[key].day.low}/{current_node_data[0].properties[key].low}/
-                                                                            {current_node_data[0].properties[key].year.low}
-                                                                        </Typography>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Divider/>
-                                                            </Grid>
-                                                        </ListItem>
-                                                        ||
-                                                        key.includes("accessURL") &&
-                                                        <ListItem>
-                                                            <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
-                                                            <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1" color="inherit">
-                                                                        {key[0].toUpperCase() + key.substring(1)}:
-                                                                    </Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle2" color="inherit">
-                                                                        <a href={current_node_data[0].properties[key]} style={{ textDecoration: 'none' }}>
-                                                                            {current_node_data[0].properties[key]}
-                                                                        </a>
-                                                                    </Typography>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Divider/>
-                                                            </Grid>
-                                                        </ListItem>
-                                                        ||
-                                                        <ListItem>
-                                                            <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
-                                                            <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1" color="inherit">
-                                                                        {key[0].toUpperCase() + key.substring(1)}:
-                                                                    </Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle2" color="inherit">
-                                                                        {current_node_data[0].properties[key]}
-                                                                    </Typography>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Divider/>
-                                                            </Grid>
-                                                        </ListItem>
+                                            Object.keys(current_node_data._fields[0].properties).sort().map(
+                                                (key,index) => {
 
-                                                    )
-                                                )
+                                                    if(!list_of_properties_to_exclude.includes(key)) {
+                                                        if (key.includes("date")) {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    {current_node_data._fields[0].properties[key].day.low}/{current_node_data._fields[0].properties[key].low}/
+                                                                                    {current_node_data._fields[0].properties[key].year.low}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        } else if (key.includes("accessURL")) {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    <a href={current_node_data._fields[0].properties[key]}
+                                                                                       style={{ textDecoration: 'none' }}>
+                                                                                        {current_node_data._fields[0].properties[key]}
+                                                                                    </a>
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <ListItem>
+                                                                    <Grid container alignItems="flex-start"
+                                                                          justifyContent="space-between"
+                                                                          direction="row">
+                                                                        <Grid item lg={6} md={6} sm={6} xs={12}
+                                                                              key={uuid()}>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle1"
+                                                                                            color="inherit">
+                                                                                    {key[0].toUpperCase() + key.substring(1)}:
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Typography variant="subtitle2"
+                                                                                            color="inherit">
+                                                                                    {current_node_data._fields[0].properties[key]}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Divider />
+                                                                    </Grid>
+                                                                </ListItem>
+                                                            )
+                                                        }
+                                                    }
+                                                }
                                             )
                                         }
                                         {
-                                            current_node_data[0].properties["comment"] && (current_node_data[0].properties["comment"].length > 0) &&
+                                            current_node_data._fields[0].properties["comment"] && (current_node_data._fields[0].properties["comment"].length > 0) &&
                                             <ListItem>
                                                 <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                                     <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
@@ -158,7 +185,7 @@ const Node = ({ match }) => {
                                                             Comment
                                                         </Typography>
                                                         <Typography variant="subtitle2" color="inherit">
-                                                            {current_node_data[0].properties["comment"]}
+                                                            {current_node_data._fields[0].properties["comment"]}
                                                         </Typography>
                                                     </Grid>
                                                     <Divider/>
@@ -166,18 +193,22 @@ const Node = ({ match }) => {
                                             </ListItem>
                                         }
                                         {
-                                            current_node_data[0].properties["accessURL"]  &&
+                                            current_node_data._fields[0].properties["accessURL"]  &&
                                             <ListItem>
                                                 <Grid container alignItems="flex-start" justifyContent="space-between" direction="row">
                                                     <Grid item lg={6} md={6} sm={6} xs={12} key={uuid()}>
                                                         <Typography variant="subtitle1" color="inherit">
                                                             AccessURL:
                                                         </Typography>
-                                                        <Typography variant="subtitle2" color="inherit">
-                                                            <a href={current_node_data[0].properties["accessURL"]} style={{ textDecoration: 'none' }}>
-                                                                {current_node_data[0].properties["accessURL"]}
-                                                            </a>
-                                                        </Typography>
+                                                        {current_node_data._fields[0].properties["accessURL"].map((link, index) => (
+                                                            <Grid item key={index}>
+                                                                <Typography variant="subtitle2" color="inherit">
+                                                                    <a href={link} style={{ textDecoration: 'none' }}>
+                                                                        {link}
+                                                                    </a>
+                                                                </Typography>
+                                                            </Grid>
+                                                        ))}
                                                     </Grid>
                                                     <Divider/>
                                                 </Grid>
