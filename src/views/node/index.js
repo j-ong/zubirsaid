@@ -53,7 +53,6 @@ const Node = ({ match }) => {
             </Box>
             <TabPanel value="0">
             <Grid container spacing={gridSpacing}>
-
                 {
                     nodes.map((node) => (
                     <Grid item xs={12} sm={12} key={node.group}>
