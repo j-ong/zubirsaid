@@ -44,6 +44,8 @@ const MainlistState = (props) => {
         var loopData = [];
         var groups = [];
 
+
+
         // Fetch data of node (END)
 
         /*Cytoscape Portion (START)*/
@@ -62,18 +64,18 @@ const MainlistState = (props) => {
             }
         ];
         let cytoscape_edges = [];
-
+        let central_topic_data = data[0];
         let popup_data = { a: {} };
         popup_data[data[0]._fields[0].properties.id] = {
             labels: data[0]._fields[0].labels,
             properties: data[0]._fields[0].properties
         };
+        let current_node_data = data[0]._fields;
         delete popup_data['a'];
 
         /*Cytoscape Portion (END)*/
 
         // Group data based on the the group properties (START)
-
         for (var i = 0; i < data.length; i++) {
             // if (true) {
             if (!data[i]._fields[2].labels.includes("Class")) {
@@ -153,6 +155,7 @@ const MainlistState = (props) => {
             payload_cytoscape_nodes: cytoscape_nodes,
             payload_cytoscape_edges: cytoscape_edges,
             payload_cytoscape_data: popup_data,
+            payload_current_node_data:current_node_data,
             summary: nodeSummary
         });
     };
@@ -168,6 +171,7 @@ const MainlistState = (props) => {
                 cytoscape_nodes: state.cytoscape_nodes,
                 cytoscape_edges: state.cytoscape_edges,
                 cytoscape_data: state.cytoscape_data,
+                current_node_data: state.current_node_data,
                 nodeSummary: state.nodeSummary,
                 loading: state.loading,
                 getCards,
