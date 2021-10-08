@@ -111,7 +111,7 @@ const Node = ({ match }) => {
                                                                                             color="inherit">
                                                                                     {current_node_data._fields[0].properties[key].day.low}/{current_node_data._fields[0].properties[key].low}/
                                                                                     {current_node_data._fields[0].properties[key].year.low}
-                                                                                </Typography>
+                                                                                </  Typography>
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Divider />
@@ -224,8 +224,13 @@ const Node = ({ match }) => {
                 }
                 {
                     nodes.map((node) => (
+
                     <Grid item xs={12} sm={12} key={node.group}>
-                        <SubCard title={node.group}>
+                        <SubCard
+                            title={node.group}
+                            node={node}
+                            sign={node.sign}
+                            >
                             <Grid container spacing={gridSpacing}>
                                 {
                                     node.properties.map((property) => (
@@ -237,6 +242,7 @@ const Node = ({ match }) => {
                             </Grid>
                         </SubCard>
                     </Grid>
+
                 ))}
             </Grid>
             </TabPanel>

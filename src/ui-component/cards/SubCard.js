@@ -7,8 +7,15 @@ import { Card, CardContent, CardHeader, Divider, Typography } from '@material-ui
 
 //-----------------------|| CUSTOM SUB CARD ||-----------------------//
 
-const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {}, title, ...others }) => {
+const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {}, title, node, sign, ...others }) => {
     const theme = useTheme();
+
+    console.log(node);
+
+
+    if(sign===null){
+        sign = '';
+    }
 
     return (
         <Card
@@ -23,8 +30,8 @@ const SubCard = ({ children, content, contentClass, darkTitle, secondary, sx = {
             {...others}
         >
             {/* card header and action */}
-            {!darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h5">{title}</Typography>} action={secondary} />}
-            {darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title}</Typography>} action={secondary} />}
+            {!darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + sign}</Typography>} action={secondary} />}
+            {darkTitle && title && <CardHeader sx={{ p: 2.5 }} title={<Typography variant="h4">{title + sign}</Typography>} action={secondary} />}
 
             {/* content & header divider */}
             {title && (

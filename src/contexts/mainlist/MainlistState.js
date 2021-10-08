@@ -43,6 +43,7 @@ const MainlistState = (props) => {
         var data = res.data;
         var loopData = [];
         var groups = [];
+        var groupsign ={};
 
 
 
@@ -65,7 +66,6 @@ const MainlistState = (props) => {
             }
         ];
         let cytoscape_edges = [];
-        let central_topic_data = data[0];
         let popup_data = { a: {} };
         popup_data[data[0]._fields[0].properties.id] = {
             labels: data[0]._fields[0].labels,
@@ -79,9 +79,6 @@ const MainlistState = (props) => {
         // Group data based on the the group properties (START)
         for (var i = 0; i < data.length; i++) {
             // if (true) {
-            if (data[i]._fields[2].labels.includes("Class")) {
-
-            }
             if (!data[i]._fields[2].labels.includes("Class")) {
                 loopData.push(data[i]._fields);
 
@@ -95,6 +92,28 @@ const MainlistState = (props) => {
                     groups[groupName] = [];
                 }
                 groups[groupName].push(data[i]._fields[2].properties);
+
+                console.log(data[i]);
+                try{
+
+                    if(groupsign[groupName] == null){
+                        let current_sign = ""
+                        if (data[i]._fields[0].identity.low !== data[i]._fields[1].start.low)
+                        { current_sign = ' <= '  // relation arrow points backward
+                        }
+                        else if (data[i]._fields[0].identity.low === data[i]._fields[1].start.low) {
+                            current_sign += ' =>' // relation arrow points forward
+                        }
+                        else {
+                            current_sign = ""
+                        }
+                        groupsign[groupName] = {sign:current_sign};
+                    }
+                }
+                catch(err){
+
+                }
+
 
             /*Cytoscape Portion (START)*/
             // if (!data[i]._fields[2].labels.includes("Class")) {
@@ -145,7 +164,8 @@ const MainlistState = (props) => {
             if (groupName !== ('Subclass of' || 'Type')) {
                 nodeArray.push({
                     group: groupName,
-                    properties: groups[groupName]
+                    properties: groups[groupName],
+                    sign:groupsign[groupName]["sign"],
                 });
             }
         }

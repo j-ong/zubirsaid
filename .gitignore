@@ -26,11 +26,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /.idea/
-/prof_files/
-/prof_files/neo4j-async1.html
-/prof_files/neo4j-async3.html
-/prof_files/neo4j-async4.html
-/prof_files/neo4j-async4b.html
-/prof_files/ZS.graph.api.html
-/prof_files/ZS.graph.no-api.html
-/prof_files/ZS.text.html
