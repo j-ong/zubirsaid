@@ -5,6 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import MainCard from '../../ui-component/cards/MainCard';
 import Box from '@material-ui/core/Box';
+
 import {
     Button,
     CardActions,
@@ -232,7 +233,15 @@ export class DraggableDialog extends React.Component {
                                 {this.state.data.properties.comment && this.state.data.properties.comment !== '' && (
                                     <Grid>
                                         <b>{'Comment: '}</b>
-                                        {this.state.data.properties.comment}
+                                        {
+                                            this.state.data.properties.comment.split("\\n").map(textLine => (
+                                                <span>
+                                                    <br/>
+                                                    {textLine}
+                                                    <br/>
+                                                </span>
+                                            ))
+                                        }
                                     </Grid>
                                 )}
                                 {this.state.data.properties['accessURL'] &&

@@ -413,7 +413,15 @@ const NodePropertyItem = ({ loading, property }) => {
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="subtitle2" color="inherit">
-                                                    {property.comment}
+                                                    {
+                                                        property.comment.split("\\n").map(textLine => (
+                                                            <span>
+                                                                <br/>
+                                                                {textLine}
+                                                                <br/>
+                                                            </span>
+                                                        ))
+                                                    }
                                                 </Typography>
                                             </Grid>
                                         </Grid>
