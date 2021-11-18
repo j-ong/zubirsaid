@@ -248,9 +248,12 @@ export class DraggableDialog extends React.Component {
                                     this.state.data.properties['accessURL'].map((link, index) => (
                                         <Grid item key={index}>
                                             <Typography variant="subtitle2" color="inherit">
-                                                <a href={link} style={{ textDecoration: 'none' }}>
-                                                    {/*{showAccessURL(link)}*/}
-                                                </a>
+                                                {
+                                                    !link.includes("theonlinecitizen.com") && (
+                                                        <a href={link} style={{ textDecoration: 'none' }}>
+                                                        </a>
+                                                    )
+                                                }
                                             </Typography>
                                         </Grid>
                                     ))}

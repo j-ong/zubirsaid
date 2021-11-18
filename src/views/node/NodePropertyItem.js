@@ -154,7 +154,12 @@ const NodePropertyItem = ({ loading, property }) => {
 
     //Render link text based on the accessURL endpoint
     const showAccessURL = (link) => {
-        if (link.includes('pdf')) {
+        if (link.includes("theonlinecitizen.com")){
+            return(
+                <br>
+                </br>
+            );
+        } else if (link.includes('pdf')){
             return (
                 <Button
                     variant="contained"

@@ -160,7 +160,12 @@ const Node = ({ match }) => {
 
 
     const showAccessURL = (link) => {
-        if (link.includes('pdf')) {
+        if (link.includes("theonlinecitizen.com")){
+            return(
+                <br>
+                </br>
+            );
+        } else if (link.includes('pdf')) {
             return (
                 <Button
                     variant="contained"
