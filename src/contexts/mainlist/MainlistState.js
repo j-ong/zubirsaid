@@ -23,6 +23,12 @@ const MainlistState = (props) => {
         var data = res.data;
         var loopData = [];
         for (var i = 0; i < data.length; i++) {
+            if(data[i]._fields[0].properties.hasOwnProperty("comment")){
+                data[i]._fields[0].properties["comment"]=data[i]._fields[0].properties["comment"].replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")
+            }
+            if(data[i]._fields[2].properties.hasOwnProperty("comment")){
+                data[i]._fields[2].properties["comment"]=data[i]._fields[2].properties["comment"].replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")
+            }
             loopData.push(data[i]._fields[2].properties);
         }
 
@@ -44,7 +50,14 @@ const MainlistState = (props) => {
         var loopData = [];
         var groups = [];
         var groupsign ={};
-
+        for (var i = 0; i < data.length; i++) {
+            if(data[i]._fields[0].properties.hasOwnProperty("comment")){
+                data[i]._fields[0].properties["comment"]=data[i]._fields[0].properties["comment"].replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")
+            }
+            if(data[i]._fields[2].properties.hasOwnProperty("comment")){
+                data[i]._fields[2].properties["comment"]=data[i]._fields[2].properties["comment"].replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")
+            }
+        }
 
 
         // Fetch data of node (END)

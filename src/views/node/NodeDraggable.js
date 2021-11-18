@@ -237,7 +237,7 @@ export class DraggableDialog extends React.Component {
                                             this.state.data.properties.comment.split("\\n").map(textLine => (
                                                 <span>
                                                     <br/>
-                                                    {textLine}
+                                                    {textLine.replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")}
                                                     <br/>
                                                 </span>
                                             ))
@@ -248,9 +248,12 @@ export class DraggableDialog extends React.Component {
                                     this.state.data.properties['accessURL'].map((link, index) => (
                                         <Grid item key={index}>
                                             <Typography variant="subtitle2" color="inherit">
-                                                <a href={link} style={{ textDecoration: 'none' }}>
-                                                    {/*{showAccessURL(link)}*/}
-                                                </a>
+                                                {
+                                                    !link.includes("theonlinecitizen.com") && (
+                                                        <a href={link} style={{ textDecoration: 'none' }}>
+                                                        </a>
+                                                    )
+                                                }
                                             </Typography>
                                         </Grid>
                                     ))}
@@ -263,7 +266,7 @@ export class DraggableDialog extends React.Component {
                                         this.linkClicked(this.state.id);
                                     }}
                                 >
-                                    <Typography variant="subtitle2">View more information on {this.state.label}</Typography>
+                                    <Typography variant="subtitle2">{this.state.label}</Typography>
                                     <ChevronRightOutlinedIcon />
                                 </Button>
                             </Grid>

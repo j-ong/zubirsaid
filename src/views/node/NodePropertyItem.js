@@ -154,7 +154,12 @@ const NodePropertyItem = ({ loading, property }) => {
 
     //Render link text based on the accessURL endpoint
     const showAccessURL = (link) => {
-        if (link.includes('pdf')) {
+        if (link.includes("theonlinecitizen.com")){
+            return(
+                <br>
+                </br>
+            );
+        } else if (link.includes('pdf')){
             return (
                 <Button
                     variant="contained"
@@ -417,7 +422,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                                         property.comment.split("\\n").map(textLine => (
                                                             <span>
                                                                 <br/>
-                                                                {textLine}
+                                                                {textLine.replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")}
                                                                 <br/>
                                                             </span>
                                                         ))
@@ -451,7 +456,7 @@ const NodePropertyItem = ({ loading, property }) => {
                     <CardActions className={classes.cardAction}>
                         <Link to={`/node/${property.id}`} style={{ textDecoration: 'none' }}>
                             <Button size="small" disableElevation>
-                                View more information on {property.label}
+                                {property.label}
                                 <ChevronRightOutlinedIcon />
                             </Button>
                         </Link>
