@@ -266,7 +266,7 @@ export class DraggableDialog extends React.Component {
                                         this.linkClicked(this.state.id);
                                     }}
                                 >
-                                    <Typography variant="subtitle2">View more information on {this.state.label}</Typography>
+                                    <Typography variant="subtitle2">{this.state.label}</Typography>
                                     <ChevronRightOutlinedIcon />
                                 </Button>
                             </Grid>
