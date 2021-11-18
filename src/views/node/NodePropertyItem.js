@@ -417,7 +417,7 @@ const NodePropertyItem = ({ loading, property }) => {
                                                         property.comment.split("\\n").map(textLine => (
                                                             <span>
                                                                 <br/>
-                                                                {textLine}
+                                                                {textLine.replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")}
                                                                 <br/>
                                                             </span>
                                                         ))

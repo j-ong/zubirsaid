@@ -237,7 +237,7 @@ export class DraggableDialog extends React.Component {
                                             this.state.data.properties.comment.split("\\n").map(textLine => (
                                                 <span>
                                                     <br/>
-                                                    {textLine}
+                                                    {textLine.replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")}
                                                     <br/>
                                                 </span>
                                             ))

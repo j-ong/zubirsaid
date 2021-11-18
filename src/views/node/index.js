@@ -356,7 +356,15 @@ const Node = ({ match }) => {
                                                             Comment
                                                         </Typography>
                                                         <Typography variant="subtitle2" color="inherit">
-                                                            {current_node_data._fields[0].properties["comment"]}
+                                                            {
+                                                                current_node_data._fields[0].properties["comment"].split("\\n").map(textLine => (
+                                                                    <span>
+                                                                        <br/>
+                                                                        {textLine.replace(/[\u0000-\u001F\u007F-\u009F\ufff0-\uffff]/g, "")}
+                                                                        <br/>
+                                                                    </span>
+                                                                ))
+                                                            }
                                                         </Typography>
                                                     </Grid>
                                                     <Divider/>
